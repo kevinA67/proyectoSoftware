@@ -17,6 +17,7 @@ public class ProyectoSoftware {
     public static void main(String[] args) {
         System.out.println("Hola");
         System.out.println("Hola");
+        System.out.println("Hola");
       panel1 pa =new panel1();
       pa.setVisible(true);
     }
