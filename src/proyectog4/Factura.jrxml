@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="950" pageHeight="700" orientation="Landscape" columnWidth="910" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7e09bc1e-2b98-419b-8ac1-d67bff0dc2c9">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT v.`idVenta`, c.`nombreCliente`, v.`fechaVenta`, v.`metodoPago`, 
+v.`recargo`, SUM(vl.`cantidad`) as cantidad, SUM(vl.`subtotal`) as subtotal, v.`isv`, v.`montoTotal` 
+FROM venta v
+INNER JOIN venta_libro vl ON vl.`idVenta` = v.`idVenta`
+INNER JOIN cliente c ON c.`idCliente` = v.`idCliente`
+WHERE v.`idVenta` = (SELECT MAX(v.`idVenta`) FROM venta)
+GROUP BY v.`idVenta`]]>
+	</queryString>
+	<field name="idVenta" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombreCliente" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fechaVenta" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="metodoPago" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="recargo" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cantidad" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="subtotal" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="isv" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="montoTotal" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="126" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement mode="Opaque" x="0" y="0" width="910" height="126" forecolor="#ED784A" backcolor="#ED784A" uuid="142b4972-f0fe-4bb0-862e-ac813477bb9d"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="155" y="28" width="719" height="57" forecolor="#FFFFFF" uuid="1a567174-6a1c-40a3-b01c-26187f2a1727"/>
+				<textElement textAlignment="Right">
+					<font size="40" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[FACTURA]]></text>
+			</staticText>
+			<image>
+				<reportElement x="19" y="0" width="126" height="126" uuid="ec9859e5-3a33-48ee-9fb2-894f001ac0cd"/>
+				<imageExpression><![CDATA["C:\\Users\\Alejandra\\Desktop\\CLASES EN LÍNEA\\I PERIODO 2023\\PROGRAMACIÓN AVANZADA II\\ProyectoFinal (PRUEBA)\\ProyectoG4 (PRUEBA)\\src\\Imagenes\\Logo2.jpg"]]></imageExpression>
+			</image>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="585" y="85" width="289" height="20" forecolor="#FFFFFF" uuid="dd2e5010-abf2-4c94-a121-6a18d1865533"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
