@@ -21,8 +21,8 @@ public class ConexionBD {
             Class.forName("com.mysql.jdbc.Driver");
             //DEFINIMOS LA BD
             String url = "jdbc:mysql://db4free.net:3306/"+bd;
-            String user = "openfirekafz";
-            String pass = "elefante2008";
+            String user = "progra_admin";
+            String pass = "Pr0gr4m4c10n.w3b";
 
             //CONECTAMOS LA BD
             con = DriverManager.getConnection(url, user, pass);
@@ -39,6 +39,6 @@ public class ConexionBD {
     }
     
     public static void main(String[] args) {
-        new ConexionBD("openfirekafz");
+        new ConexionBD("abarroteria");
     }
 }
