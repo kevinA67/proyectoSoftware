@@ -6,7 +6,7 @@
 package proyectog4;
 
 import Conexion.ConexionBD;
-import com.mysql.cj.jdbc.Blob;
+//import com.ysql.cj.jdbc.Blob;
 import com.toedter.calendar.JDateChooser;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -305,71 +305,71 @@ public class RegistroCarnet extends javax.swing.JInternalFrame {
     }
 
     public void establecerValores2() {
-        conectarBD();
-        try {
-            int fila = jTablaCarnet.getSelectedRow();
-            this.cod = jTablaCarnet.getValueAt(fila, 0).toString();
-            jTxtIdentidad.setText(jTablaCarnet.getValueAt(fila, 1).toString());
-            jTxtNombreClientes.setText(jTablaCarnet.getValueAt(fila, 2).toString());
-            SimpleDateFormat dFormat = new SimpleDateFormat("yyyy-MM-dd");
-            Date fecha;
-            fecha = dFormat.parse(jTablaCarnet.getValueAt(fila, 4).toString());
-            jdcFechaEmision.setDate(fecha);
-            fecha = dFormat.parse(jTablaCarnet.getValueAt(fila, 5).toString());
-            jdcFechaExpiracion.setDate(fecha);
-
-            sentenciaSQL = "select fotoCliente from carnet_cliente where idCarnet=" + cod;
-            ps = con.prepareStatement(sentenciaSQL);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                Blob fotos = (Blob) rs.getBlob(1);
-                byte[] recuperar = fotos.getBytes(1, (int) fotos.length());
-                BufferedImage img = ImageIO.read(new ByteArrayInputStream(recuperar));
-                Image imagen = img.getScaledInstance(jlblFoto.getWidth(), jlblFoto.getHeight(), Image.SCALE_DEFAULT);
-                jlblFoto.setIcon(new ImageIcon(imagen));
-            }
-
-        } catch (ParseException ex) {
-            JOptionPane.showMessageDialog(null, "ERROR NO SE PUDO LEER LOS DATOS DE LA TABLA.  " + ex.getMessage());
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "ERROR NO SE PUDO LEER LOS DATOS DE LA TABLA.  " + ex.getMessage());
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "ERROR NO SE PUDO LEER LOS DATOS DE LA TABLA.  " + ex.getMessage());
-        }
-
-    }
-
-    public void leerClientes() {
-        cod = "";
-        conectarBD();
-        sentenciaSQL = "SELECT idCliente, numIdentidad, nombreCliente, sexo, telefono, correo, direccion FROM cliente "
-                + "INNER JOIN sexo ON cliente.idSexo = sexo.idSexo "
-                + "WHERE estadoCliente = " + "1";
-        try {
-            ps = con.prepareStatement(sentenciaSQL);
-            rs = ps.executeQuery();
-            modelo = (DefaultTableModel) jTableClientes.getModel();
-            modelo.setRowCount(0);
-            while (rs.next()) {
-                datosClientes[0] = (rs.getInt(1));
-                datosClientes[1] = (rs.getString(2));
-                datosClientes[2] = (rs.getString(3));
-                datosClientes[3] = (rs.getString(4));
-                datosClientes[4] = (rs.getString(5));
-                datosClientes[5] = (rs.getString(6));
-                datosClientes[6] = (rs.getString(7));
-                modelo.addRow(datosClientes);
-            }
-            jTableClientes.setModel(modelo);
-
-            con.close();
-
-            if (jTableClientes.getRowCount() == 0) {
-                JOptionPane.showMessageDialog(null, "No hay datos para mostrar.", "Clientes", 1);
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "ERROR NO SE PUDO LEER LOS DATOS DE LA TABLA.  " + ex.getMessage());
-        }
+//        conectarBD();
+//        try {
+//            int fila = jTablaCarnet.getSelectedRow();
+//            this.cod = jTablaCarnet.getValueAt(fila, 0).toString();
+//            jTxtIdentidad.setText(jTablaCarnet.getValueAt(fila, 1).toString());
+//            jTxtNombreClientes.setText(jTablaCarnet.getValueAt(fila, 2).toString());
+//            SimpleDateFormat dFormat = new SimpleDateFormat("yyyy-MM-dd");
+//            Date fecha;
+//            fecha = dFormat.parse(jTablaCarnet.getValueAt(fila, 4).toString());
+//            jdcFechaEmision.setDate(fecha);
+//            fecha = dFormat.parse(jTablaCarnet.getValueAt(fila, 5).toString());
+//            jdcFechaExpiracion.setDate(fecha);
+//
+//            sentenciaSQL = "select fotoCliente from carnet_cliente where idCarnet=" + cod;
+//            ps = con.prepareStatement(sentenciaSQL);
+//            rs = ps.executeQuery();
+////            while (rs.next()) {
+////                Blob fotos = (Blob) rs.getBlob(1);
+////                byte[] recuperar = fotos.getBytes(1, (int) fotos.length());
+////                BufferedImage img = ImageIO.read(new ByteArrayInputStream(recuperar));
+////                Image imagen = img.getScaledInstance(jlblFoto.getWidth(), jlblFoto.getHeight(), Image.SCALE_DEFAULT);
+////                jlblFoto.setIcon(new ImageIcon(imagen));
+////            }
+//
+////        } catch (ParseException ex) {
+////            JOptionPane.showMessageDialog(null, "ERROR NO SE PUDO LEER LOS DATOS DE LA TABLA.  " + ex.getMessage());
+////        } catch (IOException ex) {
+////            JOptionPane.showMessageDialog(null, "ERROR NO SE PUDO LEER LOS DATOS DE LA TABLA.  " + ex.getMessage());
+////        } catch (SQLException ex) {
+////            JOptionPane.showMessageDialog(null, "ERROR NO SE PUDO LEER LOS DATOS DE LA TABLA.  " + ex.getMessage());
+////        }
+//
+//    }
+//
+//    public void leerClientes() {
+//        cod = "";
+//        conectarBD();
+//        sentenciaSQL = "SELECT idCliente, numIdentidad, nombreCliente, sexo, telefono, correo, direccion FROM cliente "
+//                + "INNER JOIN sexo ON cliente.idSexo = sexo.idSexo "
+//                + "WHERE estadoCliente = " + "1";
+//        try {
+//            ps = con.prepareStatement(sentenciaSQL);
+//            rs = ps.executeQuery();
+//            modelo = (DefaultTableModel) jTableClientes.getModel();
+//            modelo.setRowCount(0);
+//            while (rs.next()) {
+//                datosClientes[0] = (rs.getInt(1));
+//                datosClientes[1] = (rs.getString(2));
+//                datosClientes[2] = (rs.getString(3));
+//                datosClientes[3] = (rs.getString(4));
+//                datosClientes[4] = (rs.getString(5));
+//                datosClientes[5] = (rs.getString(6));
+//                datosClientes[6] = (rs.getString(7));
+//                modelo.addRow(datosClientes);
+//            }
+//            jTableClientes.setModel(modelo);
+//
+//            con.close();
+//
+//            if (jTableClientes.getRowCount() == 0) {
+//                JOptionPane.showMessageDialog(null, "No hay datos para mostrar.", "Clientes", 1);
+//            }
+//        } catch (SQLException ex) {
+//            JOptionPane.showMessageDialog(null, "ERROR NO SE PUDO LEER LOS DATOS DE LA TABLA.  " + ex.getMessage());
+//        }
 
     }
 
@@ -1006,7 +1006,7 @@ public class RegistroCarnet extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTableClientesMouseClicked
 
     private void jBtnLeer1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnLeer1ActionPerformed
-        leerClientes();
+//        leerClientes();
     }//GEN-LAST:event_jBtnLeer1ActionPerformed
 
     private void jBtnBuscarNombre1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnBuscarNombre1ActionPerformed
