@@ -197,7 +197,6 @@
                       <Image iconType="3" name="/Imagenes/comprasicon.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Compras"/>
-                    <Property name="actionCommand" type="java.lang.String" value="Compras"/>
                     <Property name="borderPainted" type="boolean" value="false"/>
                   </Properties>
                   <Constraints>

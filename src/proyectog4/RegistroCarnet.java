@@ -6,7 +6,7 @@
 package proyectog4;
 
 import Conexion.ConexionBD;
-import com.mysql.jdbc.Blob;
+import com.mysql.cj.jdbc.Blob;
 import com.toedter.calendar.JDateChooser;
 import java.awt.Image;
 import java.awt.image.BufferedImage;

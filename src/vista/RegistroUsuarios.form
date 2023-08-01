@@ -201,7 +201,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="jTableUsuarios">
+                <Component class="javax.swing.JTable" name="jTxtIdempleado">
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
@@ -215,10 +215,10 @@
                         <Column editable="false" title="COD" type="java.lang.Object"/>
                         <Column editable="false" title="USUARIO" type="java.lang.Object"/>
                         <Column editable="false" title="CONTRASE&#xd1;A" type="java.lang.Object"/>
-                        <Column editable="false" title="R. CLIENTE" type="java.lang.Object"/>
-                        <Column editable="false" title="R.AUTOR" type="java.lang.Object"/>
-                        <Column editable="false" title="R. EDITORIAL" type="java.lang.Object"/>
-                        <Column editable="false" title="R. LIBRO" type="java.lang.Object"/>
+                        <Column editable="false" title="ID EMPLEADO" type="java.lang.Object"/>
+                        <Column editable="false" title="R.ADMIN" type="java.lang.Object"/>
+                        <Column editable="false" title="R. GERENCIA" type="java.lang.Object"/>
+                        <Column editable="false" title="R. CAJERO" type="java.lang.Object"/>
                         <Column editable="false" title="R. INVENTARIO" type="java.lang.Object"/>
                         <Column editable="false" title="R. VENTA" type="java.lang.Object"/>
                         <Column editable="false" title="REPORTES" type="java.lang.Object"/>
@@ -230,7 +230,7 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTableUsuariosMouseClicked"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTxtIdempleadoMouseClicked"/>
                   </Events>
                 </Component>
               </SubComponents>
@@ -260,42 +260,50 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <EmptySpace min="40" pref="40" max="-2" attributes="0"/>
-                              <Component id="jLabel13" min="-2" pref="60" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                              <Component id="jTxtCodigo" min="-2" pref="240" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="40" pref="40" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <EmptySpace min="60" pref="60" max="-2" attributes="0"/>
-                                      <Component id="jTxtUsuario" min="-2" pref="240" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                                      <Component id="CamposObligatorios" min="-2" pref="140" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="jLabel11" min="-2" pref="70" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="90" pref="90" max="-2" attributes="0"/>
+                                      <Component id="jTxtContrasena1" min="-2" pref="240" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="jLabel15" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
                               </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="validarContrasena" min="-2" pref="20" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Component id="jLabel13" min="-2" pref="60" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                                      <Component id="jTxtCodigo" min="-2" pref="240" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <EmptySpace min="60" pref="60" max="-2" attributes="0"/>
+                                              <Component id="jTxtUsuario" min="-2" pref="240" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="jLabel11" min="-2" pref="70" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="90" pref="90" max="-2" attributes="0"/>
                                       <Component id="jTxtContrasena" min="-2" pref="240" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="jLabel14" min="-2" pref="100" max="-2" attributes="0"/>
                               </Group>
-                          </Group>
-                          <Component id="CamposObligatorios" min="-2" pref="140" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="validarUsuario" min="-2" pref="20" max="-2" attributes="0"/>
-                          <Component id="validarContrasena" min="-2" pref="20" max="-2" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="validarUsuario" alignment="0" min="-2" pref="20" max="-2" attributes="0"/>
                                   <Component id="jBtnBuscarCod" min="-2" pref="40" max="-2" attributes="0"/>
                                   <Component id="jBtnBuscarUser" min="-2" pref="40" max="-2" attributes="0"/>
                               </Group>
@@ -361,36 +369,6 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace min="30" pref="30" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel13" min="-2" pref="20" max="-2" attributes="0"/>
-                          <Component id="jTxtCodigo" min="-2" pref="30" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="30" pref="30" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jTxtUsuario" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="jLabel11" min="-2" pref="20" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="30" pref="30" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jTxtContrasena" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="jLabel14" min="-2" pref="20" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
-                      <Component id="CamposObligatorios" min="-2" pref="20" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="30" pref="30" max="-2" attributes="0"/>
-                      <Component id="jBtnBuscarCod" min="-2" pref="30" max="-2" attributes="0"/>
-                      <EmptySpace min="30" pref="30" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jBtnBuscarUser" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="validarUsuario" min="-2" pref="20" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="30" pref="30" max="-2" attributes="0"/>
-                      <Component id="validarContrasena" min="-2" pref="20" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
                       <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
                       <Component id="jSeparator1" min="-2" pref="200" max="-2" attributes="0"/>
                   </Group>
@@ -431,6 +409,48 @@
                       <Component id="jSeparator3" min="-2" pref="10" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jbtnBitacora" min="-2" pref="40" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="30" pref="30" max="-2" attributes="0"/>
+                              <Component id="jBtnBuscarCod" min="-2" pref="30" max="-2" attributes="0"/>
+                              <EmptySpace min="30" pref="30" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jBtnBuscarUser" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <Component id="validarUsuario" min="-2" pref="20" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel13" min="-2" pref="20" max="-2" attributes="0"/>
+                                  <Component id="jTxtCodigo" min="-2" pref="30" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="30" pref="30" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jTxtUsuario" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <Component id="jLabel11" min="-2" pref="20" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="30" pref="30" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jTxtContrasena" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <Component id="jLabel14" min="-2" pref="20" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="validarContrasena" alignment="0" min="-2" pref="20" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jTxtContrasena1" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <Component id="jLabel15" alignment="0" min="-2" pref="20" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="CamposObligatorios" min="-2" pref="20" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -510,7 +530,7 @@
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Autores"/>
+                <Property name="text" type="java.lang.String" value="Cajeros"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JCheckBox" name="jchkCliente">
@@ -518,7 +538,7 @@
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Clientes"/>
+                <Property name="text" type="java.lang.String" value="Admin"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JCheckBox" name="jchkEditorial">
@@ -526,7 +546,7 @@
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Editoriales"/>
+                <Property name="text" type="java.lang.String" value="Gerencia"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JCheckBox" name="jchkLibro">
@@ -534,7 +554,7 @@
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Libros"/>
+                <Property name="text" type="java.lang.String" value="Bodega"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JCheckBox" name="jchkVenta">
@@ -611,6 +631,13 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="33" green="33" red="ff" type="rgb"/>
                 </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JPasswordField" name="jTxtContrasena1">
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel15">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="ID EMPLEADO"/>
               </Properties>
             </Component>
           </SubComponents>

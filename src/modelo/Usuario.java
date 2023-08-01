@@ -13,17 +13,26 @@ public class Usuario {
     private int idusuario;
     private String usuario;
     private String password;
+    private int idempleado;
+    private String rol;
+    private int estado;
 
     //Constructor
-    public Usuario(int idusuario, String usuario, String password) {
+
+    public Usuario(int idusuario, String usuario, String password, int idempleado, String rol, int estado) {
         this.idusuario = idusuario;
         this.usuario = usuario;
         this.password = password;
+        this.idempleado = idempleado;
+        this.rol = rol;
+        this.estado = estado;
     }
+    
     
     public Usuario(){};
     
     //Metodos
+
     public int getIdusuario() {
         return idusuario;
     }
@@ -46,5 +55,30 @@ public class Usuario {
 
     public void setPassword(String password) {
         this.password = password;
-    } 
+    }
+
+    public int getIdempleado() {
+        return idempleado;
+    }
+
+    public void setIdempleado(int idempleado) {
+        this.idempleado = idempleado;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+    
 }

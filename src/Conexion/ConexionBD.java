@@ -35,7 +35,7 @@ public class ConexionBD {
     }
     
     public Connection getConexion(){
-        return con;
+        return this.con;
     }
     
     public static void main(String[] args) {
