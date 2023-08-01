@@ -31,13 +31,13 @@ public class Menu_Principal extends javax.swing.JFrame {
 
     public Menu_Principal() {
         initComponents();
-        this.setExtendedState(MAXIMIZED_BOTH);
+       /* this.setExtendedState(MAXIMIZED_BOTH);
         desplace = new Desface();
         tamanioImg(jlblLogo, "src/Imagenes/Logo1.jpg");
         validacionPermisos();
         if (!classPrin.usuario.equals("ADMIN")) {
             bitacora(classPrin.idUsuario, "EL USUARIO INICIÓ SESIÓN");
-        }
+        }*/
     }
 
     public static void tamanioImg(JLabel imagen, String ruta) {

@@ -4,6 +4,17 @@
  */
 package abarroteria;
 
+import Conexion.ConexionBD;
+import Conexion.SentenciasUsuario;
+import controlador.ControladorUsuario;
+import desplazable.Desface;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JPanel;
+import vista.compras;
+import vista.Login;
+import vista.R_Usuario;
 
 /**
  *
@@ -11,11 +22,24 @@ package abarroteria;
  */
 public class Principal extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Main
-     */
+    Desface desplace;
+    Login login;
+
+    String sentenciaSQL;
+    Connection con = null;
+    ConexionBD connec;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+
+    public R_Usuario r_usuario;
+
     public Principal() {
         initComponents();
+
+        r_usuario = new R_Usuario();
+        r_usuario.setVisible(true);
+        panelfondo.add(r_usuario);
+
     }
 
     /**
@@ -97,7 +121,6 @@ public class Principal extends javax.swing.JFrame {
         btncompras.setForeground(new java.awt.Color(242, 242, 242));
         btncompras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/comprasicon.png"))); // NOI18N
         btncompras.setText("Compras");
-        btncompras.setActionCommand("Compras");
         btncompras.setBorderPainted(false);
         panelbarra.add(btncompras, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 0, -1, -1));
 
@@ -167,15 +190,15 @@ public class Principal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                try {
 
-                    Principal frame = new Principal();
+                //new Principal().setVisible(true);
+                Principal frame = new Principal();
+               // SentenciasUsuario sentusu = new SentenciasUsuario();
 
-                    frame.setLocationRelativeTo(null);
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                //ControladorUsuario ctrlus = new ControladorUsuario(frame, sentusu);
+                frame.setLocationRelativeTo(null);
+                frame.setVisible(true);
+
             }
         });
     }

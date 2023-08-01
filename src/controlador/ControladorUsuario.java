@@ -25,12 +25,9 @@ public class ControladorUsuario implements ActionListener,MouseListener{
         this.frm=frm;
         this.sentusu=sentusu;
         
+        frm.r_usuario.btnCrear.addActionListener(this);
     }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+public void actionPerformed(ActionEvent e){}
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -56,5 +53,7 @@ public class ControladorUsuario implements ActionListener,MouseListener{
     public void mouseExited(MouseEvent e) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+    
     
 }

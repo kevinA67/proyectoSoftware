@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package proyectog4;
+package vista;
 
+import proyectog4.*;
 import Conexion.ConexionBD;
 import java.awt.Dimension;
 import java.awt.Image;
@@ -38,10 +39,10 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
         limpiarCampos();
 
         cod = "";
-        if (jTableUsuarios.getRowCount() == 0) {
+        if (jTxtIdempleado.getRowCount() == 0) {
             JOptionPane.showMessageDialog(null, "No hay datos para limpiar.", "Tabla vacía", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            int fila = jTableUsuarios.getRowCount();
+            int fila = jTxtIdempleado.getRowCount();
             for (int i = fila - 1; i >= 0; i--) {
                 modelo.removeRow(i);
             }
@@ -108,6 +109,7 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
             sentenciaSQL = "INSERT INTO usuario (idUsuario, user, password, permisoCliente, permisoAutor, permisoEditorial, permisoLibro, "
                     + "permisoInventario, permisoVenta, permisoReporteria, estadoUsuario) "
                     + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            
 
             permisos();
 
@@ -141,7 +143,7 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
         try {
             ps = con.prepareStatement(sentenciaSQL);
             rs = ps.executeQuery();
-            modelo = (DefaultTableModel) jTableUsuarios.getModel();
+            modelo = (DefaultTableModel) jTxtIdempleado.getModel();
             modelo.setRowCount(0);
             while (rs.next()) {
                 datosUsuarios[0] = (rs.getInt(1));
@@ -158,11 +160,11 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
 
                 modelo.addRow(datosUsuarios);
             }
-            jTableUsuarios.setModel(modelo);
+            jTxtIdempleado.setModel(modelo);
 
             con.close();
 
-            if (jTableUsuarios.getRowCount() == 0) {
+            if (jTxtIdempleado.getRowCount() == 0) {
                 JOptionPane.showMessageDialog(null, "No hay datos para mostrar.", "Usuarios", 1);
             }
         } catch (SQLException ex) {
@@ -243,7 +245,7 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
                 ps.setString(2, "%" + usuario + "%");
 
                 rs = ps.executeQuery();
-                modelo = (DefaultTableModel) jTableUsuarios.getModel();
+                modelo = (DefaultTableModel) jTxtIdempleado.getModel();
                 modelo.setRowCount(0);
                 while (rs.next()) {
                     datosUsuarios[0] = (rs.getInt(1));
@@ -276,17 +278,17 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
 
     public void establecerValores() {
 
-        int fila = jTableUsuarios.getSelectedRow();
-        jTxtCodigo.setText(jTableUsuarios.getValueAt(fila, 0).toString());
-        jTxtUsuario.setText(jTableUsuarios.getValueAt(fila, 1).toString());
-        jTxtContrasena.setText(jTableUsuarios.getValueAt(fila, 2).toString());
-        int chkCliente = Integer.parseInt(jTableUsuarios.getValueAt(fila, 3).toString());
-        int chkAutor = Integer.parseInt(jTableUsuarios.getValueAt(fila, 4).toString());
-        int chkEditorial = Integer.parseInt(jTableUsuarios.getValueAt(fila, 5).toString());
-        int chkLibro = Integer.parseInt(jTableUsuarios.getValueAt(fila, 6).toString());
-        int chkInventario = Integer.parseInt(jTableUsuarios.getValueAt(fila, 7).toString());
-        int chkVenta = Integer.parseInt(jTableUsuarios.getValueAt(fila, 8).toString());
-        int chkReporte = Integer.parseInt(jTableUsuarios.getValueAt(fila, 9).toString());
+        int fila = jTxtIdempleado.getSelectedRow();
+        jTxtCodigo.setText(jTxtIdempleado.getValueAt(fila, 0).toString());
+        jTxtUsuario.setText(jTxtIdempleado.getValueAt(fila, 1).toString());
+        jTxtContrasena.setText(jTxtIdempleado.getValueAt(fila, 2).toString());
+        int chkCliente = Integer.parseInt(jTxtIdempleado.getValueAt(fila, 3).toString());
+        int chkAutor = Integer.parseInt(jTxtIdempleado.getValueAt(fila, 4).toString());
+        int chkEditorial = Integer.parseInt(jTxtIdempleado.getValueAt(fila, 5).toString());
+        int chkLibro = Integer.parseInt(jTxtIdempleado.getValueAt(fila, 6).toString());
+        int chkInventario = Integer.parseInt(jTxtIdempleado.getValueAt(fila, 7).toString());
+        int chkVenta = Integer.parseInt(jTxtIdempleado.getValueAt(fila, 8).toString());
+        int chkReporte = Integer.parseInt(jTxtIdempleado.getValueAt(fila, 9).toString());
 
         if (chkCliente == 1) {
             jchkCliente.setSelected(true);
@@ -382,7 +384,7 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableUsuarios = new javax.swing.JTable();
+        jTxtIdempleado = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jBtnBuscarCod = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
@@ -406,6 +408,8 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
         CamposObligatorios = new javax.swing.JLabel();
         validarUsuario = new javax.swing.JLabel();
         validarContrasena = new javax.swing.JLabel();
+        jTxtContrasena1 = new javax.swing.JPasswordField();
+        jLabel15 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jBtnActualizar = new javax.swing.JButton();
         jBtnLeer = new javax.swing.JButton();
@@ -462,13 +466,13 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(71, 84, 130), 2, true), "LISTA DE REGISTROS", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(71, 84, 130))); // NOI18N
 
-        jTableUsuarios.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(71, 84, 130)));
-        jTableUsuarios.setModel(new javax.swing.table.DefaultTableModel(
+        jTxtIdempleado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(71, 84, 130)));
+        jTxtIdempleado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "COD", "USUARIO", "CONTRASEÑA", "R. CLIENTE", "R.AUTOR", "R. EDITORIAL", "R. LIBRO", "R. INVENTARIO", "R. VENTA", "REPORTES", "ESTADO"
+                "COD", "USUARIO", "CONTRASEÑA", "ID EMPLEADO", "R.ADMIN", "R. GERENCIA", "R. CAJERO", "R. INVENTARIO", "R. VENTA", "REPORTES", "ESTADO"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -479,12 +483,12 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTableUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTxtIdempleado.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTableUsuariosMouseClicked(evt);
+                jTxtIdempleadoMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTableUsuarios);
+        jScrollPane1.setViewportView(jTxtIdempleado);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -539,16 +543,16 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
         jLabel13.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
         jchkAutor.setBackground(new java.awt.Color(255, 255, 255));
-        jchkAutor.setText("Autores");
+        jchkAutor.setText("Cajeros");
 
         jchkCliente.setBackground(new java.awt.Color(255, 255, 255));
-        jchkCliente.setText("Clientes");
+        jchkCliente.setText("Admin");
 
         jchkEditorial.setBackground(new java.awt.Color(255, 255, 255));
-        jchkEditorial.setText("Editoriales");
+        jchkEditorial.setText("Gerencia");
 
         jchkLibro.setBackground(new java.awt.Color(255, 255, 255));
-        jchkLibro.setText("Libros");
+        jchkLibro.setText("Bodega");
 
         jchkVenta.setBackground(new java.awt.Color(255, 255, 255));
         jchkVenta.setText("Ventas");
@@ -585,39 +589,47 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
         validarContrasena.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         validarContrasena.setForeground(new java.awt.Color(255, 51, 51));
 
+        jLabel15.setText("ID EMPLEADO");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(4, 4, 4)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(jTxtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGap(60, 60, 60)
-                                .addComponent(jTxtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(4, 4, 4)
+                                .addComponent(CamposObligatorios, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(90, 90, 90)
+                                .addComponent(jTxtContrasena1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(validarContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(30, 30, 30)
+                                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)
+                                .addComponent(jTxtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(30, 30, 30)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel4Layout.createSequentialGroup()
+                                        .addGap(60, 60, 60)
+                                        .addComponent(jTxtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGap(90, 90, 90)
                                 .addComponent(jTxtContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(CamposObligatorios, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(validarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(validarContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
+                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(validarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jBtnBuscarCod, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jBtnBuscarUser, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -663,30 +675,6 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTxtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTxtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTxtContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addComponent(CamposObligatorios, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jBtnBuscarCod, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBtnBuscarUser, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(validarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addComponent(validarContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel4Layout.createSequentialGroup()
@@ -717,6 +705,37 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jbtnBitacora, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jBtnBuscarCod, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jBtnBuscarUser, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(validarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTxtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTxtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTxtContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(validarContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTxtContrasena1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(CamposObligatorios, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
@@ -843,9 +862,9 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTableUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableUsuariosMouseClicked
+    private void jTxtIdempleadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTxtIdempleadoMouseClicked
         establecerValores();
-    }//GEN-LAST:event_jTableUsuariosMouseClicked
+    }//GEN-LAST:event_jTxtIdempleadoMouseClicked
 
     private void jBtnBuscarCodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnBuscarCodActionPerformed
         buscarRegistro();
@@ -923,6 +942,7 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -932,9 +952,10 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JTable jTableUsuarios;
     private javax.swing.JTextField jTxtCodigo;
     private javax.swing.JPasswordField jTxtContrasena;
+    private javax.swing.JPasswordField jTxtContrasena1;
+    private javax.swing.JTable jTxtIdempleado;
     private javax.swing.JTextField jTxtUsuario;
     private javax.swing.JButton jbtnBitacora;
     private javax.swing.JCheckBox jchkAutor;
