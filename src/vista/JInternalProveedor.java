@@ -419,10 +419,7 @@ public void ConexionBD() {
 
         jTableProveedor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "CODIGO", "NOMBRE", "DIRECCION", "TELEFONO", "CORREO"
