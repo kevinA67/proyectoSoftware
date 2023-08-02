@@ -7,23 +7,19 @@ package vista;
 
 import Conexion.ConexionBD;
 import java.awt.Color;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+
+import java.sql.*;
+
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import proyectog4.classPrin;
 
 /**
  *
  * @author User
  */
-public class clientes extends javax.swing.JFrame {
-
-    String usuario, cod, sentenciaSQL;
+public class JInternalClientes extends javax.swing.JInternalFrame {
+ String usuario, cod, sentenciaSQL;
     Connection con = null;
     ConexionBD connec;
     PreparedStatement ps = null;
@@ -31,19 +27,17 @@ public class clientes extends javax.swing.JFrame {
     DefaultTableModel modelo;
     Object datosClientes[] = new Object[7];
     String nombreTabla = "CLIENTES";
-
     /**
-     * Creates new form clientes
+     * Creates new form JInternalClientes
      */
-    public clientes() {
+    public JInternalClientes() {
         initComponents();
-        
-        jCmbSexo.addItem("SELECCIONE UNA OPCIÓN: ");
+         jCmbSexo.addItem("SELECCIONE UNA OPCIÓN: ");
         llenarCmbSexo();
         jTxtIdentidad.requestFocus();
     }
 
-    public void ConexionBD() {
+     public void ConexionBD() {
         connec = new ConexionBD("abarroteria");
         con = connec.getConexion();
     }
@@ -264,7 +258,6 @@ public class clientes extends javax.swing.JFrame {
                }}
          return vacios;
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -304,8 +297,6 @@ public class clientes extends javax.swing.JFrame {
         jButtonAct = new javax.swing.JButton();
         jButtonElim = new javax.swing.JButton();
         jButtonLimpiar = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(null);
@@ -688,25 +679,33 @@ public class clientes extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1137, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1148, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 616, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jBtnBuscarIdentidad1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnBuscarIdentidad1ActionPerformed
+        //   if (!jTxtIdentidad.getText().equals("    -    -     ")) {
+            //       buscarCliente(1);
+            //   } else {
+            //     JOptionPane.showMessageDialog(null, "El campo está vacío.", "Buscar", 1);
+            //   }
+    }//GEN-LAST:event_jBtnBuscarIdentidad1ActionPerformed
+
     private void jBtnBuscarNombre1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnBuscarNombre1ActionPerformed
         //   if (!jTxtNombreCliente.getText().isEmpty()) {
-        //     buscarCliente(0);
-        //   } else {
-        //   JOptionPane.showMessageDialog(null, "El campo está vacío.", "Buscar", 1);
-        //   }
+            //     buscarCliente(0);
+            //   } else {
+            //   JOptionPane.showMessageDialog(null, "El campo está vacío.", "Buscar", 1);
+            //   }
     }//GEN-LAST:event_jBtnBuscarNombre1ActionPerformed
 
     private void jTableClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableClientesMouseClicked
@@ -726,6 +725,19 @@ public class clientes extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonCrearMouseExited
 
+    private void jButtonCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCrearActionPerformed
+
+        // TODO add your handling code here:
+
+        boolean  validarid= validarIdentidad();
+        if(validarid ==true){
+
+        }else{
+            crearCliente();
+            limpiarCampos();
+        }
+    }//GEN-LAST:event_jButtonCrearActionPerformed
+
     private void jButtonLeerMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonLeerMouseEntered
         jButtonLeer.setBackground(Color.red);
         jButtonLeer.setForeground(Color.white);
@@ -737,6 +749,11 @@ public class clientes extends javax.swing.JFrame {
         jButtonLeer.setForeground(Color.black);
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonLeerMouseExited
+
+    private void jButtonLeerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLeerActionPerformed
+        // TODO add your handling code here:
+        leerClientes();
+    }//GEN-LAST:event_jButtonLeerActionPerformed
 
     private void jButtonActMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonActMouseEntered
         jButtonAct.setBackground(Color.red);
@@ -750,6 +767,12 @@ public class clientes extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonActMouseExited
 
+    private void jButtonActActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActActionPerformed
+        // TODO add your handling code here:
+        actualizarCliente();
+        limpiarCampos();
+    }//GEN-LAST:event_jButtonActActionPerformed
+
     private void jButtonElimMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonElimMouseEntered
         jButtonElim.setBackground(Color.red);
         jButtonElim.setForeground(Color.white);
@@ -761,6 +784,12 @@ public class clientes extends javax.swing.JFrame {
         jButtonElim.setForeground(Color.black);
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonElimMouseExited
+
+    private void jButtonElimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonElimActionPerformed
+        // TODO add your handling code here:
+        eliminarCliente();
+        limpiarCampos();
+    }//GEN-LAST:event_jButtonElimActionPerformed
 
     private void jButtonLimpiarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonLimpiarMouseEntered
         jButtonLimpiar.setBackground(Color.red);
@@ -774,85 +803,12 @@ public class clientes extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonLimpiarMouseExited
 
-    private void jBtnBuscarIdentidad1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnBuscarIdentidad1ActionPerformed
-        //   if (!jTxtIdentidad.getText().equals("    -    -     ")) {
-        //       buscarCliente(1);
-        //   } else {
-        //     JOptionPane.showMessageDialog(null, "El campo está vacío.", "Buscar", 1);
-        //   }
-    }//GEN-LAST:event_jBtnBuscarIdentidad1ActionPerformed
-
-    private void jButtonCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCrearActionPerformed
-
-        // TODO add your handling code here:
-        
-        boolean  validarid= validarIdentidad();
-        if(validarid ==true){
-            
-        }else{
-        crearCliente();
-        limpiarCampos();
-        }
-    }//GEN-LAST:event_jButtonCrearActionPerformed
-
-    private void jButtonLeerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLeerActionPerformed
-        // TODO add your handling code here:
-        leerClientes();
-    }//GEN-LAST:event_jButtonLeerActionPerformed
-
-    private void jButtonActActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActActionPerformed
-        // TODO add your handling code here:
-        actualizarCliente();
-        limpiarCampos();
-    }//GEN-LAST:event_jButtonActActionPerformed
-
-    private void jButtonElimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonElimActionPerformed
-        // TODO add your handling code here:
-        eliminarCliente();
-        limpiarCampos();
-    }//GEN-LAST:event_jButtonElimActionPerformed
-
     private void jButtonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarActionPerformed
         // TODO add your handling code here:
         limpiar();
         jTxtIdentidad.setEnabled(true);
     }//GEN-LAST:event_jButtonLimpiarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(clientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(clientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(clientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(clientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new clientes().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField TxtId;

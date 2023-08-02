@@ -20,9 +20,9 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author User
  */
-public class Proveedor extends javax.swing.JFrame {
+public class JInternalProveedor extends javax.swing.JInternalFrame {
 
-    String usuario, cod, sentenciaSQL;
+     String usuario, cod, sentenciaSQL;
     Connection con = null;
     ConexionBD connec;
     PreparedStatement ps = null;
@@ -30,23 +30,191 @@ public class Proveedor extends javax.swing.JFrame {
     DefaultTableModel modelo;
     Object datosProveedor[] = new Object[5];
     String nombreTabla = "PROVEEDORES";
-
     /**
-     * Creates new form Proveedor
+     * Creates new form JInternalProveedor
      */
-    public Proveedor() {
+    public JInternalProveedor() {
         initComponents();
-        TxtNombre.requestFocus();
+         TxtNombre.requestFocus();
         TxtCodigo.setEditable(false);
     }
+public void ConexionBD() {
+        connec = new ConexionBD("abarroteria");
+        con = connec.getConexion();
+    }
 
+    public void bitacora(int idUsuario, String accionUsuario) {
+        try {
+            ConexionBD();
+            sentenciaSQL = "INSERT INTO bitacoraUsuario (idBitacora, idUsuario, accionUsuario, fecha, hora, estadoBitacora) VALUES (?, ?, ?, ?, ?, ?)";
+            ps = con.prepareStatement(sentenciaSQL);
+            ps.setInt(1, 0);
+            ps.setInt(2, idUsuario);
+            ps.setString(3, accionUsuario);
+            ps.setTimestamp(4, new Timestamp(new Date().getTime())); //Obtener la fecha del sistema
+            ps.setTimestamp(5, new Timestamp(new Date().getTime())); //Obtener la hora del sistema
+            ps.setInt(6, 1);
+            ps.executeUpdate();
+            con.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al insertar en la bitácora: " + ex.getMessage());
+        }
+    }
+
+    public void limpiar() {
+        limpiarCampos();
+
+        cod = "";
+        if (jTableProveedor.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "No hay datos para limpiar.", "Tabla vacía", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            int fila = jTableProveedor.getRowCount();
+            for (int i = fila - 1; i >= 0; i--) {
+                modelo.removeRow(i);
+            }
+        }
+    }
+
+    public void limpiarCampos() {
+
+        TxtNombre.setText(null);
+        jTxtDireccion.setText(null);
+        TxtTelefono.setText(null);
+
+        TxtNombre.requestFocus();
+    }
+
+    public void crearProveedor() {
+        try {
+            ConexionBD();
+            sentenciaSQL = "INSERT INTO proveedores ( id_proveedor, nombre_proveedor, direccion, telefono, correo_electronico, estado) "
+                    + "VALUES ( ?, ?, ?, ?, ?, ?)";
+            ps = con.prepareStatement(sentenciaSQL);
+
+            int estado = 1; //1 será activo, y 0 desactivo (eliminado)
+
+            ps.setInt(1, 0);
+            ps.setString(2, TxtNombre.getText());
+            ps.setString(3, jTxtDireccion.getText());
+
+            ps.setString(4, TxtTelefono.getText());
+            ps.setString(5, TxtCorreo.getText());
+
+            ps.setInt(6, estado);
+            ps.execute();
+
+            // String accion = "CREACIÓN DE REGISTRO EN LA TABLA " + nombreTabla;
+            // bitacora(classPrin.idUsuario, accion);
+            JOptionPane.showMessageDialog(null, "DATOS INGRESADOS CORRECTAMENTE");
+            con.close();
+            limpiarCampos();
+            leerProveedor();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "ERROR AL INTENTAR INGRESAR LOS DATOS:  " + ex.getMessage());
+        }
+    }
+
+    public void leerProveedor() {
+        cod = "";
+        ConexionBD();
+        sentenciaSQL = "SELECT id_proveedor, nombre_proveedor, direccion, telefono,  correo_electronico FROM proveedores  "
+                + "WHERE estado = " + "1";
+        try {
+            ps = con.prepareStatement(sentenciaSQL);
+            rs = ps.executeQuery();
+            modelo = (DefaultTableModel) jTableProveedor.getModel();
+            modelo.setRowCount(0);
+            while (rs.next()) {
+                datosProveedor[0] = (rs.getInt(1));
+                datosProveedor[1] = (rs.getString(2));
+                datosProveedor[2] = (rs.getString(3));
+                datosProveedor[3] = (rs.getString(4));
+                datosProveedor[4] = (rs.getString(5));
+
+                modelo.addRow(datosProveedor);
+
+            }
+            jTableProveedor.setModel(modelo);
+
+            //String accion = "LECTURA A LOS REGISTROS DE LA TABLA " + nombreTabla;
+            // bitacora(classPrin.idUsuario, accion);
+            con.close();
+
+            if (jTableProveedor.getRowCount() == 0) {
+                JOptionPane.showMessageDialog(null, "No hay datos para mostrar.", "Proveedores", 1);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "ERROR NO SE PUDO LEER LOS DATOS DE LA TABLA.  " + ex.getMessage());
+        }
+
+    }
+
+    public void actualizarProveedor() {
+
+        try {
+            ConexionBD();
+            sentenciaSQL = "UPDATE proveedores SET nombre_proveedor=?, direccion=?, telefono=?,   correo_electronico=? "
+                    + " WHERE id_cliente =" + TxtCodigo.getText();
+            ps = con.prepareStatement(sentenciaSQL);
+
+            ps.setString(1, TxtNombre.getText());
+
+            ps.setString(2, jTxtDireccion.getText());
+            ps.setString(3, TxtTelefono.getText());
+            ps.setString(4, TxtCorreo.getText());
+
+            ps.execute();
+
+            // String accion = "ACTUALIZACIÓN DE REGISTRO EN LA TABLA " + nombreTabla;
+            //bitacora(classPrin.idUsuario, accion);
+            JOptionPane.showMessageDialog(null, "DATOS ACTUALIZADOS CORRECTAMENTE");
+            con.close();
+            leerProveedor();
+            limpiarCampos();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "ERROR, NO SE PUDO ACTUALIZAR LOS DATOS " + ex.getMessage());
+        }
+    }
+
+    public void eliminarProveedor() {
+        try {
+            ConexionBD();
+            sentenciaSQL = "UPDATE proveedores SET estado='0' WHERE id_proveedor =" + TxtCodigo.getText();
+            ps = con.prepareStatement(sentenciaSQL);
+            ps.execute();
+            limpiarCampos();
+
+            //String accion = "ELIMINACIÓN DE REGISTRO EN LA TABLA " + nombreTabla;
+            // bitacora(classPrin.idUsuario, accion);
+            JOptionPane.showMessageDialog(null, "DATOS ELIMINADOS CORRECTAMENTE!");
+            leerProveedor();
+            cod = "";
+            con.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "ERROR, NO SE PUDO ELIMINAR LOS DATOS " + ex.getMessage());
+        }
+    }
+
+    public void establecerValores() {
+
+        int fila = jTableProveedor.getSelectedRow();
+        TxtCodigo.setText(jTableProveedor.getValueAt(fila, 0).toString());
+
+        TxtNombre.setText(jTableProveedor.getValueAt(fila, 1).toString());
+        jTxtDireccion.setText(jTableProveedor.getValueAt(fila, 2).toString());
+
+        TxtTelefono.setText(jTableProveedor.getValueAt(fila, 3).toString());
+
+        TxtCorreo.setText(jTableProveedor.getValueAt(fila, 4).toString());
+
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
      * regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
-
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -80,8 +248,6 @@ public class Proveedor extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabelFoto = new javax.swing.JLabel();
         jButtonFoto = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(null);
@@ -482,203 +648,33 @@ public class Proveedor extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1148, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1139, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 14, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void ConexionBD() {
-        connec = new ConexionBD("abarroteria");
-        con = connec.getConexion();
-    }
+    private void jBtnBuscarIdentidad1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnBuscarIdentidad1ActionPerformed
+        //   if (!jTxtIdentidad.getText().equals("    -    -     ")) {
+            //       buscarCliente(1);
+            //   } else {
+            //     JOptionPane.showMessageDialog(null, "El campo está vacío.", "Buscar", 1);
+            //   }
+    }//GEN-LAST:event_jBtnBuscarIdentidad1ActionPerformed
 
-    public void bitacora(int idUsuario, String accionUsuario) {
-        try {
-            ConexionBD();
-            sentenciaSQL = "INSERT INTO bitacoraUsuario (idBitacora, idUsuario, accionUsuario, fecha, hora, estadoBitacora) VALUES (?, ?, ?, ?, ?, ?)";
-            ps = con.prepareStatement(sentenciaSQL);
-            ps.setInt(1, 0);
-            ps.setInt(2, idUsuario);
-            ps.setString(3, accionUsuario);
-            ps.setTimestamp(4, new Timestamp(new Date().getTime())); //Obtener la fecha del sistema
-            ps.setTimestamp(5, new Timestamp(new Date().getTime())); //Obtener la hora del sistema
-            ps.setInt(6, 1);
-            ps.executeUpdate();
-            con.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al insertar en la bitácora: " + ex.getMessage());
-        }
-    }
-
-    public void limpiar() {
-        limpiarCampos();
-
-        cod = "";
-        if (jTableProveedor.getRowCount() == 0) {
-            JOptionPane.showMessageDialog(null, "No hay datos para limpiar.", "Tabla vacía", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            int fila = jTableProveedor.getRowCount();
-            for (int i = fila - 1; i >= 0; i--) {
-                modelo.removeRow(i);
-            }
-        }
-    }
-
-    public void limpiarCampos() {
-
-        TxtNombre.setText(null);
-        jTxtDireccion.setText(null);
-        TxtTelefono.setText(null);
-
-        TxtNombre.requestFocus();
-    }
-
-    public void crearProveedor() {
-        try {
-            ConexionBD();
-            sentenciaSQL = "INSERT INTO proveedores ( id_proveedor, nombre_proveedor, direccion, telefono, correo_electronico, estado) "
-                    + "VALUES ( ?, ?, ?, ?, ?, ?)";
-            ps = con.prepareStatement(sentenciaSQL);
-
-            int estado = 1; //1 será activo, y 0 desactivo (eliminado)
-
-            ps.setInt(1, 0);
-            ps.setString(2, TxtNombre.getText());
-            ps.setString(3, jTxtDireccion.getText());
-
-            ps.setString(4, TxtTelefono.getText());
-            ps.setString(5, TxtCorreo.getText());
-
-            ps.setInt(6, estado);
-            ps.execute();
-
-            // String accion = "CREACIÓN DE REGISTRO EN LA TABLA " + nombreTabla;
-            // bitacora(classPrin.idUsuario, accion);
-            JOptionPane.showMessageDialog(null, "DATOS INGRESADOS CORRECTAMENTE");
-            con.close();
-            limpiarCampos();
-            leerProveedor();
-
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "ERROR AL INTENTAR INGRESAR LOS DATOS:  " + ex.getMessage());
-        }
-    }
-
-    public void leerProveedor() {
-        cod = "";
-        ConexionBD();
-        sentenciaSQL = "SELECT id_proveedor, nombre_proveedor, direccion, telefono,  correo_electronico FROM proveedores  "
-                + "WHERE estado = " + "1";
-        try {
-            ps = con.prepareStatement(sentenciaSQL);
-            rs = ps.executeQuery();
-            modelo = (DefaultTableModel) jTableProveedor.getModel();
-            modelo.setRowCount(0);
-            while (rs.next()) {
-                datosProveedor[0] = (rs.getInt(1));
-                datosProveedor[1] = (rs.getString(2));
-                datosProveedor[2] = (rs.getString(3));
-                datosProveedor[3] = (rs.getString(4));
-                datosProveedor[4] = (rs.getString(5));
-
-                modelo.addRow(datosProveedor);
-
-            }
-            jTableProveedor.setModel(modelo);
-
-            //String accion = "LECTURA A LOS REGISTROS DE LA TABLA " + nombreTabla;
-            // bitacora(classPrin.idUsuario, accion);
-            con.close();
-
-            if (jTableProveedor.getRowCount() == 0) {
-                JOptionPane.showMessageDialog(null, "No hay datos para mostrar.", "Proveedores", 1);
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "ERROR NO SE PUDO LEER LOS DATOS DE LA TABLA.  " + ex.getMessage());
-        }
-
-    }
-
-    public void actualizarProveedor() {
-
-        try {
-            ConexionBD();
-            sentenciaSQL = "UPDATE proveedores SET nombre_proveedor=?, direccion=?, telefono=?,   correo_electronico=? "
-                    + " WHERE id_cliente =" + TxtCodigo.getText();
-            ps = con.prepareStatement(sentenciaSQL);
-
-            ps.setString(1, TxtNombre.getText());
-
-            ps.setString(2, jTxtDireccion.getText());
-            ps.setString(3, TxtTelefono.getText());
-            ps.setString(4, TxtCorreo.getText());
-
-            ps.execute();
-
-            // String accion = "ACTUALIZACIÓN DE REGISTRO EN LA TABLA " + nombreTabla;
-            //bitacora(classPrin.idUsuario, accion);
-            JOptionPane.showMessageDialog(null, "DATOS ACTUALIZADOS CORRECTAMENTE");
-            con.close();
-            leerProveedor();
-            limpiarCampos();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "ERROR, NO SE PUDO ACTUALIZAR LOS DATOS " + ex.getMessage());
-        }
-    }
-
-    public void eliminarProveedor() {
-        try {
-            ConexionBD();
-            sentenciaSQL = "UPDATE proveedores SET estado='0' WHERE id_proveedor =" + TxtCodigo.getText();
-            ps = con.prepareStatement(sentenciaSQL);
-            ps.execute();
-            limpiarCampos();
-
-            //String accion = "ELIMINACIÓN DE REGISTRO EN LA TABLA " + nombreTabla;
-            // bitacora(classPrin.idUsuario, accion);
-            JOptionPane.showMessageDialog(null, "DATOS ELIMINADOS CORRECTAMENTE!");
-            leerProveedor();
-            cod = "";
-            con.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "ERROR, NO SE PUDO ELIMINAR LOS DATOS " + ex.getMessage());
-        }
-    }
-
-    public void establecerValores() {
-
-        int fila = jTableProveedor.getSelectedRow();
-        TxtCodigo.setText(jTableProveedor.getValueAt(fila, 0).toString());
-
-        TxtNombre.setText(jTableProveedor.getValueAt(fila, 1).toString());
-        jTxtDireccion.setText(jTableProveedor.getValueAt(fila, 2).toString());
-
-        TxtTelefono.setText(jTableProveedor.getValueAt(fila, 3).toString());
-
-        TxtCorreo.setText(jTableProveedor.getValueAt(fila, 4).toString());
-
-    }
-
-
-    private void jButtonFotoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonFotoMouseEntered
-        jButtonFoto.setBackground(Color.red);
-        jButtonFoto.setForeground(Color.white);
+    private void jBtnBuscarIdentidad2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnBuscarIdentidad2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFotoMouseEntered
+    }//GEN-LAST:event_jBtnBuscarIdentidad2ActionPerformed
 
-    private void jButtonFotoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonFotoMouseExited
-        jButtonFoto.setBackground(Color.white);
-        jButtonFoto.setForeground(Color.black);
+    private void jTableProveedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableProveedorMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFotoMouseExited
+        establecerValores();
+    }//GEN-LAST:event_jTableProveedorMouseClicked
 
     private void jButtonCrearMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCrearMouseEntered
         jButtonCrear.setBackground(Color.red);
@@ -693,6 +689,11 @@ public class Proveedor extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonCrearMouseExited
 
+    private void jButtonCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCrearActionPerformed
+        crearProveedor();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCrearActionPerformed
+
     private void jButtonLeerMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonLeerMouseEntered
         jButtonLeer.setBackground(Color.red);
         jButtonLeer.setForeground(Color.white);
@@ -704,6 +705,11 @@ public class Proveedor extends javax.swing.JFrame {
         jButtonLeer.setForeground(Color.black);
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonLeerMouseExited
+
+    private void jButtonLeerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLeerActionPerformed
+        leerProveedor();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonLeerActionPerformed
 
     private void jButtonActMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonActMouseEntered
         jButtonAct.setBackground(Color.red);
@@ -717,6 +723,10 @@ public class Proveedor extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonActMouseExited
 
+    private void jButtonActActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActActionPerformed
+        actualizarProveedor();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonActActionPerformed
+
     private void jButtonElimMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonElimMouseEntered
         jButtonElim.setBackground(Color.red);
         jButtonElim.setForeground(Color.white);
@@ -728,6 +738,11 @@ public class Proveedor extends javax.swing.JFrame {
         jButtonElim.setForeground(Color.black);
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonElimMouseExited
+
+    private void jButtonElimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonElimActionPerformed
+        eliminarProveedor();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonElimActionPerformed
 
     private void jButtonLimpiarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonLimpiarMouseEntered
         jButtonLimpiar.setBackground(Color.red);
@@ -741,82 +756,23 @@ public class Proveedor extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonLimpiarMouseExited
 
-    private void jBtnBuscarIdentidad1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnBuscarIdentidad1ActionPerformed
-        //   if (!jTxtIdentidad.getText().equals("    -    -     ")) {
-        //       buscarCliente(1);
-        //   } else {
-        //     JOptionPane.showMessageDialog(null, "El campo está vacío.", "Buscar", 1);
-        //   }
-    }//GEN-LAST:event_jBtnBuscarIdentidad1ActionPerformed
-
-    private void jBtnBuscarIdentidad2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnBuscarIdentidad2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBtnBuscarIdentidad2ActionPerformed
-
-    private void jTableProveedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableProveedorMouseClicked
-        // TODO add your handling code here:
-        establecerValores();
-    }//GEN-LAST:event_jTableProveedorMouseClicked
-
-    private void jButtonCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCrearActionPerformed
-        crearProveedor();
-// TODO add your handling code here:
-    }//GEN-LAST:event_jButtonCrearActionPerformed
-
-    private void jButtonLeerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLeerActionPerformed
-        leerProveedor();
-// TODO add your handling code here:
-    }//GEN-LAST:event_jButtonLeerActionPerformed
-
-    private void jButtonActActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActActionPerformed
-        actualizarProveedor();        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonActActionPerformed
-
-    private void jButtonElimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonElimActionPerformed
-        eliminarProveedor();
-// TODO add your handling code here:
-    }//GEN-LAST:event_jButtonElimActionPerformed
-
     private void jButtonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarActionPerformed
         limpiar();
-// TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_jButtonLimpiarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Proveedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Proveedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Proveedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Proveedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
+    private void jButtonFotoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonFotoMouseEntered
+        jButtonFoto.setBackground(Color.red);
+        jButtonFoto.setForeground(Color.white);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonFotoMouseEntered
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Proveedor().setVisible(true);
-            }
-        });
-    }
+    private void jButtonFotoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonFotoMouseExited
+        jButtonFoto.setBackground(Color.white);
+        jButtonFoto.setForeground(Color.black);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonFotoMouseExited
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField TxtCodigo;
