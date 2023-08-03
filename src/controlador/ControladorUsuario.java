@@ -20,13 +20,13 @@ public class ControladorUsuario implements ActionListener,MouseListener{
     Principal frm;
     SentenciasUsuario sentusu;
     
-    public ControladorUsuario(Principal frm, SentenciasUsuario sentusu)
+   /* public ControladorUsuario(Principal frm, SentenciasUsuario sentusu)
     {
         this.frm=frm;
         this.sentusu=sentusu;
         
         frm.r_usuario.btnCrear.addActionListener(this);
-    }
+    }*/
 public void actionPerformed(ActionEvent e){}
 
     @Override
