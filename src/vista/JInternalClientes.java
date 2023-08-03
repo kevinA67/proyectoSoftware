@@ -298,6 +298,10 @@ public class JInternalClientes extends javax.swing.JInternalFrame {
         jButtonElim = new javax.swing.JButton();
         jButtonLimpiar = new javax.swing.JButton();
 
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(null);
 
@@ -328,7 +332,7 @@ public class JInternalClientes extends javax.swing.JInternalFrame {
         jPanel2.setBounds(0, 0, 1140, 90);
 
         jPanel3.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "REGISTRO", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(255, 0, 0))); // NOI18N
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "REGISTRO", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 16), new java.awt.Color(255, 0, 0))); // NOI18N
 
         try {
             jTxtIdentidad.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####-####-#####")));
@@ -484,7 +488,7 @@ public class JInternalClientes extends javax.swing.JInternalFrame {
         jPanel3.setBounds(10, 100, 480, 320);
 
         jPanel5.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(71, 84, 130), 2, true), "LISTA DE REGISTROS", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(255, 51, 0))); // NOI18N
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(71, 84, 130), 2, true), "LISTA DE REGISTROS", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 16), new java.awt.Color(255, 51, 0))); // NOI18N
 
         jTableClientes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(71, 84, 130)));
         jTableClientes.setModel(new javax.swing.table.DefaultTableModel(
@@ -530,11 +534,10 @@ public class JInternalClientes extends javax.swing.JInternalFrame {
         jPanel5.setBounds(500, 100, 630, 510);
 
         jPanel6.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gestion", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Historic", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gestion", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Historic", 1, 12))); // NOI18N
 
         jButtonCrear.setBackground(new java.awt.Color(255, 255, 255));
         jButtonCrear.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButtonCrear.setForeground(new java.awt.Color(0, 0, 0));
         jButtonCrear.setText("  Crear");
         jButtonCrear.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jButtonCrear.setBorderPainted(false);
@@ -555,7 +558,6 @@ public class JInternalClientes extends javax.swing.JInternalFrame {
 
         jButtonLeer.setBackground(new java.awt.Color(255, 255, 255));
         jButtonLeer.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButtonLeer.setForeground(new java.awt.Color(0, 0, 0));
         jButtonLeer.setText("  Leer");
         jButtonLeer.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jButtonLeer.setBorderPainted(false);
@@ -576,7 +578,6 @@ public class JInternalClientes extends javax.swing.JInternalFrame {
 
         jButtonAct.setBackground(new java.awt.Color(255, 255, 255));
         jButtonAct.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButtonAct.setForeground(new java.awt.Color(0, 0, 0));
         jButtonAct.setText("Actualizar");
         jButtonAct.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jButtonAct.setBorderPainted(false);
@@ -597,7 +598,6 @@ public class JInternalClientes extends javax.swing.JInternalFrame {
 
         jButtonElim.setBackground(new java.awt.Color(255, 255, 255));
         jButtonElim.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButtonElim.setForeground(new java.awt.Color(0, 0, 0));
         jButtonElim.setText("Eliminar");
         jButtonElim.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jButtonElim.setBorderPainted(false);
@@ -618,7 +618,6 @@ public class JInternalClientes extends javax.swing.JInternalFrame {
 
         jButtonLimpiar.setBackground(new java.awt.Color(255, 255, 255));
         jButtonLimpiar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButtonLimpiar.setForeground(new java.awt.Color(0, 0, 0));
         jButtonLimpiar.setText("Limpiar");
         jButtonLimpiar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jButtonLimpiar.setFocusable(false);
@@ -666,7 +665,7 @@ public class JInternalClientes extends javax.swing.JInternalFrame {
                     .addComponent(jButtonAct, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonElim, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jButtonLimpiar, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
+                .addComponent(jButtonLimpiar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
