@@ -12,5 +12,6 @@ package vista;
 public class Prueba {
     public void prueba(){
         System.out.println("Hola");
+        System.out.println("Hola2");
     }
 }
