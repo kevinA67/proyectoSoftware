@@ -4,10 +4,9 @@
  */
 package Conexion;
 
-import abarroteria.MenuPrincipal;
 import java.sql.*;
 import javax.swing.JOptionPane;
-import vista.login;
+import vista.Login;
 
 /**
  *
@@ -41,8 +40,8 @@ public class ConexionBD {
     }
     
     public static void main(String[] args) {
-      //  new ConexionBD("abarroteria");
-        login log=new login();
-        log.setVisible(true);
+      new ConexionBD("abarroteria");
+//        Login log=new Login();
+//        log.setVisible(true);
     }
 }

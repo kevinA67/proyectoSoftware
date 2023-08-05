@@ -5,14 +5,13 @@
  */
 package vista;
 
-import proyectog4.*;
 import Conexion.ConexionBD;
+import abarroteria.Menu_Principal;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.sql.*;
 import javax.swing.*;
 import javax.swing.table.*;
-import static proyectog4.Menu_Principal.jDesktopPane1;
 
 /**
  *
@@ -26,13 +25,14 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
     PreparedStatement ps = null;
     ResultSet rs = null;
     DefaultTableModel modelo;
-    Object datosUsuarios[] = new Object[11];
+    Object datosUsuarios[] = new Object[12];
 
     //Permisos
     int permisoCliente, permisoInvetario, permisoCompras, permisoProductos, permisoInventario, permisoVenta, permisoReporteria, permisoUsuario, permisoProveedor;
 
     public RegistroUsuarios() {
         initComponents();
+        leerUsuarios();
     }
 
     public void limpiar() {
@@ -47,6 +47,11 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
                 modelo.removeRow(i);
             }
         }
+    }
+    
+     public void conectarBD() {
+        connec = new ConexionBD("abarroteria");
+        con = connec.getConexion();
     }
 
     public void limpiarCampos() {
@@ -68,10 +73,7 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
 
     }
 
-    public void conectarBD() {
-        connec = new ConexionBD("abarroteria");
-        con = connec.getConexion();
-    }
+   
 
     public void permisos() {
 
@@ -81,7 +83,6 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
         permisoInventario = 0;
         permisoCompras = 0;
         permisoProductos = 0;
-        permisoInventario = 0;
         permisoVenta = 0;
         permisoReporteria = 0;
         permisoUsuario = 0;
@@ -116,29 +117,30 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
     public void crearUsuario() {
         try {
             conectarBD();
-            sentenciaSQL="INSERT INTO `usuarios`(`id_usuario`, `nombre_usuario`, `password`, `p_ventas`, `p_compras`, `p_clientes`, `p_productos`, `p_inventario`, `p_proveedor`, `p_reportes`, `p_usuario`, `estado`) "
-                    + "VALUES ('NULL','?','?','?','?','?','?','?','?','?','?','?')";
-            
+            sentenciaSQL = "INSERT INTO usuarios (id_usuario, nombre_usuario, password, p_ventas, p_compras, p_clientes, p_productos, p_inventario, p_proveedor, p_reportes, p_usuario, estado) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+//            sentenciaSQL = "INSERT INTO `usuarios`(`id_usuario`, `nombre_usuario`, `password`, `p_ventas`, `p_compras`, `p_clientes`, `p_productos`, `p_inventario`, `p_proveedor`, `p_reportes`, `p_usuario`, `estado`) "
+//                    + "VALUES ('?','?','?','?','?','?','?','?','?','?','?','?')";
+
             /*sentenciaSQL = "INSERT INTO usuario (idUsuario, user, password, permisoCliente, permisoAutor, permisoEditorial, permisoLibro, "
                     + "permisoInventario, permisoVenta, permisoReporteria, estadoUsuario) "
                     + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";*/
-            
-
             permisos();
 
             ps = con.prepareStatement(sentenciaSQL);
-            //ps.setInt(1, 0);
-            ps.setString(1, jTxtUsuario.getText());
-            ps.setString(2, jTxtContrasena.getText());
-            ps.setInt(3, permisoVenta);
-            ps.setInt(4, permisoCompras);
-            ps.setInt(5, permisoCliente);
-            ps.setInt(6, permisoProductos);
-            ps.setInt(7, permisoInventario);
-            ps.setInt(8, permisoProveedor);
-            ps.setInt(9,permisoReporteria);
-            ps.setInt(1, permisoUsuario);
-            ps.setInt(11, 1);
+            ps.setInt(1, 0);
+            ps.setString(2, jTxtUsuario.getText());
+            ps.setString(3, jTxtContrasena.getText());
+            ps.setInt(4, permisoVenta);
+            ps.setInt(5, permisoCompras);
+            ps.setInt(6, permisoCliente);
+            ps.setInt(7, permisoProductos);
+            ps.setInt(8, permisoInventario);
+            ps.setInt(9, permisoProveedor);
+            ps.setInt(10, permisoReporteria);
+            ps.setInt(11, permisoUsuario);
+            ps.setInt(12, 1);
             //El valor 0 significa que el permiso está inactivo
             //El valor 1 significa que el usuario está activo
             ps.execute();
@@ -153,7 +155,7 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
     public void leerUsuarios() {
 
         conectarBD();
-        sentenciaSQL="SELECT * FROM `usuarios` WHERE estado = 1";
+        sentenciaSQL = "SELECT * FROM usuarios WHERE estado = 1";
         //sentenciaSQL = "SELECT * FROM usuario WHERE estadoUsuario = 1";
         try {
             ps = con.prepareStatement(sentenciaSQL);
@@ -193,14 +195,17 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
 
         try {
             conectarBD();
-            sentenciaSQL="UPDATE `usuarios` SET `nombre_usuario`='?',`password`='?',`p_ventas`='?',`p_compras`='?',`p_clientes`='?',"
-                    + "`p_productos`='?',`p_inventario`='?',`p_proveedor`='?',`p_reportes`='?',`p_usuario`='?' "
-                    + "WHERE `id_usuario`=" + jTxtCodigo.getText().trim();
-            
+            sentenciaSQL = "UPDATE usuarios SET nombre_usuario=?, password=?, p_ventas=?, p_compras=?, p_clientes=?, "
+                    + "p_productos=?, p_inventario=?, p_proveedor=?, p_reportes=?, p_usuario=? "
+                    + "WHERE id_usuario="+ jTxtCodigo.getText().trim();
+
+//            sentenciaSQL = "UPDATE `usuarios` SET `nombre_usuario`='?',`password`='?',`p_ventas`='?',`p_compras`='?',`p_clientes`='?',"
+//                    + "`p_productos`='?',`p_inventario`='?',`p_proveedor`='?',`p_reportes`='?',`p_usuario`='?' "
+//                    + "WHERE `id_usuario`=" + jTxtCodigo.getText().trim();
+
             /*sentenciaSQL = "UPDATE usuario SET user =?, password=?, permisoCliente=?, permisoAutor=?,  permisoEditorial=?, "
                     + "permisoLibro=?, permisoInventario=?, permisoVenta=?, permisoReporteria=?"
                     + " WHERE idUsuario =" + jTxtCodigo.getText().trim();*/
-
             ps = con.prepareStatement(sentenciaSQL);
 
             permisos();
@@ -213,8 +218,8 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
             ps.setInt(6, permisoProductos);
             ps.setInt(7, permisoInventario);
             ps.setInt(8, permisoProveedor);
-            ps.setInt(9,permisoReporteria);
-            ps.setInt(1, permisoUsuario);
+            ps.setInt(9, permisoReporteria);
+            ps.setInt(10, permisoUsuario);
             ps.execute();
             JOptionPane.showMessageDialog(null, "DATOS ACTUALIZADOS CORRECTAMENTE");
             con.close();
@@ -228,7 +233,7 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
     public void eliminarUsuario() {
         try {
             conectarBD();
-            sentenciaSQL = "UPDATE usuario SET estado='0' WHERE id_usuario = " + jTxtCodigo.getText().trim();
+            sentenciaSQL = "UPDATE usuarios SET estado='2' WHERE id_usuario = " + jTxtCodigo.getText().trim();
             ps = con.prepareStatement(sentenciaSQL);
             ps.execute();
             limpiarCampos();
@@ -257,10 +262,10 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
                 if ("".equals(usuario)) {
                     usuario = "-";
                 }
-                sentenciaSQL = "SELECT * FROM usuario "
+                sentenciaSQL = "SELECT * FROM usuarios "
                         + "WHERE estado = 1 "
-                        + "AND (id_usuario = ? OR user LIKE ?) "
-                        + "AND user!='ADMIN'";
+                        + "AND (id_usuario = ? OR nombre_usuario LIKE ?) "
+                        + "AND nombre_usuario!='ADMIN'";
                 ps = con.prepareStatement(sentenciaSQL);
                 ps.setInt(1, Integer.parseInt(codigo));
                 ps.setString(2, "%" + usuario + "%");
@@ -280,6 +285,7 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
                     datosUsuarios[8] = (rs.getInt(9));
                     datosUsuarios[9] = (rs.getInt(10));
                     datosUsuarios[10] = (rs.getInt(11));
+                    datosUsuarios[11] = (rs.getInt(12));
 
                     modelo.addRow(datosUsuarios);
                 }
@@ -300,7 +306,7 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
     public void establecerValores() {
 
         int fila = jTxttableusuario.getSelectedRow();
-        
+
         jTxtCodigo.setText(jTxttableusuario.getValueAt(fila, 0).toString());
         jTxtUsuario.setText(jTxttableusuario.getValueAt(fila, 1).toString());
         jTxtContrasena.setText(jTxttableusuario.getValueAt(fila, 2).toString());
@@ -342,7 +348,7 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
         } else {
             jchkProductos.setSelected(false);
         }
-        
+
         if (chkVentas == 1) {
             jchkVenta.setSelected(true);
         } else {
@@ -354,15 +360,15 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
         } else {
             jchkReporte.setSelected(false);
         }
-        
+
         if (chkUsuario == 1) {
             jchkUsuario.setSelected(true);
         } else {
             jchkUsuario.setSelected(false);
         }
     }
-    
-      //marcar los campos obligatorios *
+
+    //marcar los campos obligatorios *
     public void TextoObligatorio(JTextField Field, JLabel label, String s) {
         if (Field.getText().isEmpty()) {
             label.setText(s);
@@ -370,39 +376,33 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
             label.setText("");
         }
     }
-    
-     public void limpiarLabel(){
-           CamposObligatorios.setText(" ");
-            validarUsuario.setText("");
-            validarContrasena.setText("");
-        
+
+    public void limpiarLabel() {
+        CamposObligatorios.setText(" ");
+        validarUsuario.setText("");
+        validarContrasena.setText("");
+
     }
 
     //Validar campos vacios
     public boolean validarUsuarios() {
         boolean vacios = false;
 
-        if (jTxtUsuario.getText().trim().isEmpty() || jTxtContrasena.getText().trim().isEmpty())
-                {
+        if (jTxtUsuario.getText().trim().isEmpty() || jTxtContrasena.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "NO DEBE DEJAR CAMPOS VACIOS", "CAMPOS VACIOS", 0);
             CamposObligatorios.setText("* Campos Obligatorios ");
 
-            
-            TextoObligatorio(jTxtUsuario,validarUsuario, "*");
+            TextoObligatorio(jTxtUsuario, validarUsuario, "*");
             TextoObligatorio(jTxtContrasena, validarContrasena, "*");
-         
-          
-         
 
             vacios = true;
 
         } else {
             vacios = false;
-         limpiarLabel();
+            limpiarLabel();
         }
         return vacios;
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -461,7 +461,7 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
         setTitle("USUARIOS");
         setToolTipText("");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cliente_icon2.png"))); // NOI18N
+        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/usericon.png"))); // NOI18N
         setMaximumSize(new java.awt.Dimension(1000, 650));
         setMinimumSize(new java.awt.Dimension(1000, 650));
 
@@ -484,7 +484,7 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
                 .addGap(21, 21, 21)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jlblImagen)
+                .addComponent(jlblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21))
         );
         jPanel2Layout.setVerticalGroup(
@@ -499,7 +499,7 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(71, 84, 130), 2, true), "LISTA DE REGISTROS", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(71, 84, 130))); // NOI18N
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(71, 84, 130), 2, true), "LISTA DE REGISTROS", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 16), new java.awt.Color(71, 84, 130))); // NOI18N
 
         jTxttableusuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(71, 84, 130)));
         jTxttableusuario.setModel(new javax.swing.table.DefaultTableModel(
@@ -537,7 +537,7 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
         );
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(71, 84, 130), 2, true), "FORMULARIO DATOS", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(71, 84, 130))); // NOI18N
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(71, 84, 130), 2, true), "FORMULARIO DATOS", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 16), new java.awt.Color(71, 84, 130))); // NOI18N
 
         jBtnBuscarCod.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/search_24px.png"))); // NOI18N
         jBtnBuscarCod.setToolTipText("Presione para buscar un cliente por su número de identidad");
@@ -559,8 +559,6 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setText("PERMISOS DE ACCESO");
         jLabel12.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-
-        jTxtCodigo.setEnabled(false);
 
         jBtnBuscarUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/search_24px.png"))); // NOI18N
         jBtnBuscarUser.setToolTipText("Presione para buscar un cliente por su número de identidad");
@@ -752,18 +750,16 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
                 .addComponent(jbtnBitacora, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTxtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtnBuscarCod, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(jBtnBuscarCod, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jBtnBuscarUser, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(validarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jBtnBuscarUser, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(validarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTxtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(30, 30, 30)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTxtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -782,7 +778,6 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(71, 84, 130), 2, true));
 
-        jBtnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/update_24px.png"))); // NOI18N
         jBtnActualizar.setText("ACTUALIZAR");
         jBtnActualizar.setFocusPainted(false);
         jBtnActualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -791,7 +786,6 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtnLeer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/view_24px.png"))); // NOI18N
         jBtnLeer.setText("LEER");
         jBtnLeer.setFocusPainted(false);
         jBtnLeer.addActionListener(new java.awt.event.ActionListener() {
@@ -800,7 +794,6 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtnCrear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Add User Group Woman Man2_24px.png"))); // NOI18N
         jBtnCrear.setText("CREAR");
         jBtnCrear.setFocusPainted(false);
         jBtnCrear.addActionListener(new java.awt.event.ActionListener() {
@@ -809,7 +802,6 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Delete User Male_24px.png"))); // NOI18N
         jBtnEliminar.setText("ELIMINAR");
         jBtnEliminar.setFocusPainted(false);
         jBtnEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -818,7 +810,6 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
             }
         });
 
-        jBtnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/erase_24px.png"))); // NOI18N
         jBtnLimpiar.setText("LIMPIAR");
         jBtnLimpiar.setFocusPainted(false);
         jBtnLimpiar.addActionListener(new java.awt.event.ActionListener() {
@@ -920,14 +911,14 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBtnInfoActionPerformed
 
     private void jBtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnActualizarActionPerformed
-         boolean vacios = validarUsuarios();
-     if(vacios==true){
-         
-     }else{
-        
-        actualizarUsuario();
-        limpiarLabel();
-     }
+        boolean vacios = validarUsuarios();
+        if (vacios == true) {
+
+        } else {
+
+            actualizarUsuario();
+            limpiarLabel();
+        }
     }//GEN-LAST:event_jBtnActualizarActionPerformed
 
     private void jBtnLeerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnLeerActionPerformed
@@ -935,18 +926,18 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBtnLeerActionPerformed
 
     private void jBtnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCrearActionPerformed
-     boolean vacios = validarUsuarios();
-     if(vacios==true){
-         
-     }else{
-        crearUsuario();
-        limpiarLabel();
-     }
+        boolean vacios = validarUsuarios();
+        if (vacios == true) {
+
+        } else {
+            crearUsuario();
+            limpiarLabel();
+        }
     }//GEN-LAST:event_jBtnCrearActionPerformed
 
     private void jBtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEliminarActionPerformed
         if (!jTxtCodigo.getText().equals("")) {
-            int respuesta = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar el cliente?", "Advertencia", JOptionPane.YES_NO_OPTION, 1);
+            int respuesta = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar el usuario?", "Advertencia", JOptionPane.YES_NO_OPTION, 1);
             if (respuesta == 0) {
                 eliminarUsuario();
             }
@@ -960,12 +951,12 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBtnLimpiarActionPerformed
 
     private void jbtnBitacoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnBitacoraActionPerformed
-        BitacoraUsuarios bitacora = new BitacoraUsuarios();
-        Menu_Principal.jDesktopPane1.add(bitacora);
-        Dimension desktopSize = Menu_Principal.jDesktopPane1.getSize();
-        Dimension FrameSize = bitacora.getSize();
-        bitacora.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
-        bitacora.show();
+//        BitacoraUsuarios bitacora = new BitacoraUsuarios();
+//        Menu_Principal.jDesktopPane1.add(bitacora);
+//        Dimension desktopSize = Menu_Principal.jDesktopPane1.getSize();
+//        Dimension FrameSize = bitacora.getSize();
+//        bitacora.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+//        bitacora.show();
     }//GEN-LAST:event_jbtnBitacoraActionPerformed
 
     private void jchkProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jchkProductosActionPerformed
