@@ -4,7 +4,11 @@
  */
 package vista;
 
+import Conexion.ConexionBD;
 import abarroteria.MenuPrincipal;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 /**
  *
@@ -12,6 +16,11 @@ import abarroteria.MenuPrincipal;
  */
 public class login extends javax.swing.JFrame {
 
+    String usuario, sentenciaSQL, cod="";
+    Connection con = null;
+    ConexionBD connec;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
     /**
      * Creates new form login
      */
@@ -32,27 +41,35 @@ public class login extends javax.swing.JFrame {
         contentPane = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         lblfondo = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
         jTextField2 = new javax.swing.JTextField();
         jPasswordField1 = new javax.swing.JPasswordField();
         jbtnIngresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        contentPane.setBackground(new java.awt.Color(255, 255, 255));
         contentPane.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel6.setText("Supermercado ABC");
-        contentPane.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 80, -1, -1));
+        jLabel6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel6.setText("¡Tus productos al mejor precio! ");
+        contentPane.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 170, -1, -1));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/supermercado_ABC_sinfondo.png"))); // NOI18N
         jLabel1.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         contentPane.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, 190, 200));
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel7.setText("Supermercado ABC");
+        contentPane.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 130, -1, -1));
 
         lblfondo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblfondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fondoabarroteria.jpeg"))); // NOI18N
@@ -71,19 +88,26 @@ public class login extends javax.swing.JFrame {
         jLabel5.setText("Usuario");
         contentPane.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 310, -1, -1));
 
-        jTextField2.setText("jTextField1");
-        contentPane.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 340, 320, -1));
+        jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
+        contentPane.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 450, 320, 20));
+
+        jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
+        contentPane.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 370, 320, 20));
+
+        jTextField2.setBorder(null);
+        contentPane.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 340, 320, 30));
 
         jPasswordField1.setText("jPasswordField1");
-        contentPane.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 420, 320, -1));
+        jPasswordField1.setBorder(null);
+        contentPane.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 420, 320, 30));
 
-        jbtnIngresar.setText("Ingresar");
+        jbtnIngresar.setText("INGRESAR");
         jbtnIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnIngresarActionPerformed(evt);
             }
         });
-        contentPane.add(jbtnIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 500, -1, -1));
+        contentPane.add(jbtnIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 480, 170, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -147,7 +171,10 @@ public class login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JButton jbtnIngresar;
     private javax.swing.JLabel lblfondo;

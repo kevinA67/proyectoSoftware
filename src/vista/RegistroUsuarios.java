@@ -5,14 +5,14 @@
  */
 package vista;
 
-//import proyectog4.*;
+import proyectog4.*;
 import Conexion.ConexionBD;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.sql.*;
 import javax.swing.*;
 import javax.swing.table.*;
-//import static proyectog4.Menu_Principal.jDesktopPane1;
+import static proyectog4.Menu_Principal.jDesktopPane1;
 
 /**
  *
