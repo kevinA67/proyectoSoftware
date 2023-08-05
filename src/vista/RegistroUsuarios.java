@@ -5,14 +5,14 @@
  */
 package vista;
 
-import proyectog4.*;
+//import proyectog4.*;
 import Conexion.ConexionBD;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.sql.*;
 import javax.swing.*;
 import javax.swing.table.*;
-import static proyectog4.Menu_Principal.jDesktopPane1;
+//import static proyectog4.Menu_Principal.jDesktopPane1;
 
 /**
  *
@@ -29,7 +29,7 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
     Object datosUsuarios[] = new Object[11];
 
     //Permisos
-    int permisoCliente, permisoAutor, permisoEditorial, permisoLibro, permisoInventario, permisoVenta, permisoReporteria;
+    int permisoCliente, permisoInvetario, permisoCompras, permisoProductos, permisoInventario, permisoVenta, permisoReporteria, permisoUsuario, permisoProveedor;
 
     public RegistroUsuarios() {
         initComponents();
@@ -39,10 +39,10 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
         limpiarCampos();
 
         cod = "";
-        if (jTxtIdempleado.getRowCount() == 0) {
+        if (jTxttableusuario.getRowCount() == 0) {
             JOptionPane.showMessageDialog(null, "No hay datos para limpiar.", "Tabla vacía", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            int fila = jTxtIdempleado.getRowCount();
+            int fila = jTxttableusuario.getRowCount();
             for (int i = fila - 1; i >= 0; i--) {
                 modelo.removeRow(i);
             }
@@ -56,18 +56,20 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
 
         //CHECKBOXS CON PERMISOS PARA ENTRAR A LOS REGISTROS
         jchkCliente.setSelected(false);
-        jchkEditorial.setSelected(false);
-        jchkAutor.setSelected(false);
-        jchkLibro.setSelected(false);
+        jchkCompras.setSelected(false);
+        jchkInventario.setSelected(false);
+        jchkProductos.setSelected(false);
         jchkVenta.setSelected(false);
         jchkReporte.setSelected(false);
+        jchkUsuario.setSelected(false);
+        jchkProveedor.setSelected(false);
 
         jTxtUsuario.requestFocus();
 
     }
 
     public void conectarBD() {
-        connec = new ConexionBD("openfirekafz");
+        connec = new ConexionBD("abarroteria");
         con = connec.getConexion();
     }
 
@@ -76,24 +78,26 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
         //El valor 0 significa que el permiso es nulo o no existe
         //El valor 1 significa que el usuario tiene permiso a ese registro
         permisoCliente = 0;
-        permisoAutor = 0;
-        permisoEditorial = 0;
-        permisoLibro = 0;
+        permisoInventario = 0;
+        permisoCompras = 0;
+        permisoProductos = 0;
         permisoInventario = 0;
         permisoVenta = 0;
         permisoReporteria = 0;
+        permisoUsuario = 0;
+        permisoProveedor = 0;
 
         if (jchkCliente.isSelected()) {
             permisoCliente = 1;
         }
-        if (jchkAutor.isSelected()) {
-            permisoAutor = 1;
+        if (jchkInventario.isSelected()) {
+            permisoInventario = 1;
         }
-        if (jchkEditorial.isSelected()) {
-            permisoEditorial = 1;
+        if (jchkCompras.isSelected()) {
+            permisoCompras = 1;
         }
-        if (jchkLibro.isSelected()) {
-            permisoLibro = 1;
+        if (jchkProductos.isSelected()) {
+            permisoProductos = 1;
         }
         if (jchkVenta.isSelected()) {
             permisoVenta = 1;
@@ -101,29 +105,39 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
         if (jchkReporte.isSelected()) {
             permisoReporteria = 1;
         }
+        if (jchkUsuario.isSelected()) {
+            permisoUsuario = 1;
+        }
+        if (jchkProveedor.isSelected()) {
+            permisoProveedor = 1;
+        }
     }
 
     public void crearUsuario() {
         try {
             conectarBD();
-            sentenciaSQL = "INSERT INTO usuario (idUsuario, user, password, permisoCliente, permisoAutor, permisoEditorial, permisoLibro, "
+            sentenciaSQL="INSERT INTO `usuarios`(`id_usuario`, `nombre_usuario`, `password`, `p_ventas`, `p_compras`, `p_clientes`, `p_productos`, `p_inventario`, `p_proveedor`, `p_reportes`, `p_usuario`, `estado`) "
+                    + "VALUES ('NULL','?','?','?','?','?','?','?','?','?','?','?')";
+            
+            /*sentenciaSQL = "INSERT INTO usuario (idUsuario, user, password, permisoCliente, permisoAutor, permisoEditorial, permisoLibro, "
                     + "permisoInventario, permisoVenta, permisoReporteria, estadoUsuario) "
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";*/
             
 
             permisos();
 
             ps = con.prepareStatement(sentenciaSQL);
-            ps.setInt(1, 0);
-            ps.setString(2, jTxtUsuario.getText());
-            ps.setString(3, jTxtContrasena.getText());
-            ps.setInt(4, permisoCliente);
-            ps.setInt(5, permisoAutor);
-            ps.setInt(6, permisoEditorial);
-            ps.setInt(7, permisoLibro);
-            ps.setInt(8, permisoInventario);
-            ps.setInt(9, permisoVenta);
-            ps.setInt(10, permisoReporteria);
+            //ps.setInt(1, 0);
+            ps.setString(1, jTxtUsuario.getText());
+            ps.setString(2, jTxtContrasena.getText());
+            ps.setInt(3, permisoVenta);
+            ps.setInt(4, permisoCompras);
+            ps.setInt(5, permisoCliente);
+            ps.setInt(6, permisoProductos);
+            ps.setInt(7, permisoInventario);
+            ps.setInt(8, permisoProveedor);
+            ps.setInt(9,permisoReporteria);
+            ps.setInt(1, permisoUsuario);
             ps.setInt(11, 1);
             //El valor 0 significa que el permiso está inactivo
             //El valor 1 significa que el usuario está activo
@@ -139,11 +153,12 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
     public void leerUsuarios() {
 
         conectarBD();
-        sentenciaSQL = "SELECT * FROM usuario WHERE estadoUsuario = 1";
+        sentenciaSQL="SELECT * FROM `usuarios` WHERE estado = 1";
+        //sentenciaSQL = "SELECT * FROM usuario WHERE estadoUsuario = 1";
         try {
             ps = con.prepareStatement(sentenciaSQL);
             rs = ps.executeQuery();
-            modelo = (DefaultTableModel) jTxtIdempleado.getModel();
+            modelo = (DefaultTableModel) jTxttableusuario.getModel();
             modelo.setRowCount(0);
             while (rs.next()) {
                 datosUsuarios[0] = (rs.getInt(1));
@@ -157,14 +172,15 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
                 datosUsuarios[8] = (rs.getInt(9));
                 datosUsuarios[9] = (rs.getInt(10));
                 datosUsuarios[10] = (rs.getInt(11));
+                datosUsuarios[11] = (rs.getInt(12));
 
                 modelo.addRow(datosUsuarios);
             }
-            jTxtIdempleado.setModel(modelo);
+            jTxttableusuario.setModel(modelo);
 
             con.close();
 
-            if (jTxtIdempleado.getRowCount() == 0) {
+            if (jTxttableusuario.getRowCount() == 0) {
                 JOptionPane.showMessageDialog(null, "No hay datos para mostrar.", "Usuarios", 1);
             }
         } catch (SQLException ex) {
@@ -177,9 +193,13 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
 
         try {
             conectarBD();
-            sentenciaSQL = "UPDATE usuario SET user =?, password=?, permisoCliente=?, permisoAutor=?,  permisoEditorial=?, "
+            sentenciaSQL="UPDATE `usuarios` SET `nombre_usuario`='?',`password`='?',`p_ventas`='?',`p_compras`='?',`p_clientes`='?',"
+                    + "`p_productos`='?',`p_inventario`='?',`p_proveedor`='?',`p_reportes`='?',`p_usuario`='?' "
+                    + "WHERE `id_usuario`=" + jTxtCodigo.getText().trim();
+            
+            /*sentenciaSQL = "UPDATE usuario SET user =?, password=?, permisoCliente=?, permisoAutor=?,  permisoEditorial=?, "
                     + "permisoLibro=?, permisoInventario=?, permisoVenta=?, permisoReporteria=?"
-                    + " WHERE idUsuario =" + jTxtCodigo.getText().trim();
+                    + " WHERE idUsuario =" + jTxtCodigo.getText().trim();*/
 
             ps = con.prepareStatement(sentenciaSQL);
 
@@ -187,13 +207,14 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
 
             ps.setString(1, jTxtUsuario.getText());
             ps.setString(2, jTxtContrasena.getText());
-            ps.setInt(3, permisoCliente);
-            ps.setInt(4, permisoAutor);
-            ps.setInt(5, permisoEditorial);
-            ps.setInt(6, permisoLibro);
+            ps.setInt(3, permisoVenta);
+            ps.setInt(4, permisoCompras);
+            ps.setInt(5, permisoCliente);
+            ps.setInt(6, permisoProductos);
             ps.setInt(7, permisoInventario);
-            ps.setInt(8, permisoVenta);
-            ps.setInt(9, permisoReporteria);
+            ps.setInt(8, permisoProveedor);
+            ps.setInt(9,permisoReporteria);
+            ps.setInt(1, permisoUsuario);
             ps.execute();
             JOptionPane.showMessageDialog(null, "DATOS ACTUALIZADOS CORRECTAMENTE");
             con.close();
@@ -207,7 +228,7 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
     public void eliminarUsuario() {
         try {
             conectarBD();
-            sentenciaSQL = "UPDATE usuario SET estadoUsuario='0' WHERE idUsuario = " + jTxtCodigo.getText().trim();
+            sentenciaSQL = "UPDATE usuario SET estado='0' WHERE id_usuario = " + jTxtCodigo.getText().trim();
             ps = con.prepareStatement(sentenciaSQL);
             ps.execute();
             limpiarCampos();
@@ -237,15 +258,15 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
                     usuario = "-";
                 }
                 sentenciaSQL = "SELECT * FROM usuario "
-                        + "WHERE estadoUsuario = 1 "
-                        + "AND (idUsuario = ? OR user LIKE ?) "
+                        + "WHERE estado = 1 "
+                        + "AND (id_usuario = ? OR user LIKE ?) "
                         + "AND user!='ADMIN'";
                 ps = con.prepareStatement(sentenciaSQL);
                 ps.setInt(1, Integer.parseInt(codigo));
                 ps.setString(2, "%" + usuario + "%");
 
                 rs = ps.executeQuery();
-                modelo = (DefaultTableModel) jTxtIdempleado.getModel();
+                modelo = (DefaultTableModel) jTxttableusuario.getModel();
                 modelo.setRowCount(0);
                 while (rs.next()) {
                     datosUsuarios[0] = (rs.getInt(1));
@@ -278,17 +299,19 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
 
     public void establecerValores() {
 
-        int fila = jTxtIdempleado.getSelectedRow();
-        jTxtCodigo.setText(jTxtIdempleado.getValueAt(fila, 0).toString());
-        jTxtUsuario.setText(jTxtIdempleado.getValueAt(fila, 1).toString());
-        jTxtContrasena.setText(jTxtIdempleado.getValueAt(fila, 2).toString());
-        int chkCliente = Integer.parseInt(jTxtIdempleado.getValueAt(fila, 3).toString());
-        int chkAutor = Integer.parseInt(jTxtIdempleado.getValueAt(fila, 4).toString());
-        int chkEditorial = Integer.parseInt(jTxtIdempleado.getValueAt(fila, 5).toString());
-        int chkLibro = Integer.parseInt(jTxtIdempleado.getValueAt(fila, 6).toString());
-        int chkInventario = Integer.parseInt(jTxtIdempleado.getValueAt(fila, 7).toString());
-        int chkVenta = Integer.parseInt(jTxtIdempleado.getValueAt(fila, 8).toString());
-        int chkReporte = Integer.parseInt(jTxtIdempleado.getValueAt(fila, 9).toString());
+        int fila = jTxttableusuario.getSelectedRow();
+        
+        jTxtCodigo.setText(jTxttableusuario.getValueAt(fila, 0).toString());
+        jTxtUsuario.setText(jTxttableusuario.getValueAt(fila, 1).toString());
+        jTxtContrasena.setText(jTxttableusuario.getValueAt(fila, 2).toString());
+        int chkCliente = Integer.parseInt(jTxttableusuario.getValueAt(fila, 3).toString());
+        int chkCompras = Integer.parseInt(jTxttableusuario.getValueAt(fila, 4).toString());
+        int chkInventario = Integer.parseInt(jTxttableusuario.getValueAt(fila, 5).toString());
+        int chkProveedor = Integer.parseInt(jTxttableusuario.getValueAt(fila, 6).toString());
+        int chkProducto = Integer.parseInt(jTxttableusuario.getValueAt(fila, 7).toString());
+        int chkVentas = Integer.parseInt(jTxttableusuario.getValueAt(fila, 8).toString());
+        int chkReporte = Integer.parseInt(jTxttableusuario.getValueAt(fila, 9).toString());
+        int chkUsuario = Integer.parseInt(jTxttableusuario.getValueAt(fila, 10).toString());
 
         if (chkCliente == 1) {
             jchkCliente.setSelected(true);
@@ -296,25 +319,31 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
             jchkCliente.setSelected(false);
         }
 
-        if (chkAutor == 1) {
-            jchkAutor.setSelected(true);
+        if (chkCompras == 1) {
+            jchkCompras.setSelected(true);
         } else {
-            jchkAutor.setSelected(false);
+            jchkCompras.setSelected(false);
         }
 
-        if (chkEditorial == 1) {
-            jchkEditorial.setSelected(true);
+        if (chkInventario == 1) {
+            jchkInventario.setSelected(true);
         } else {
-            jchkEditorial.setSelected(false);
+            jchkInventario.setSelected(false);
         }
 
-        if (chkLibro == 1) {
-            jchkLibro.setSelected(true);
+        if (chkProveedor == 1) {
+            jchkProveedor.setSelected(true);
         } else {
-            jchkLibro.setSelected(false);
+            jchkProveedor.setSelected(false);
         }
 
-        if (chkVenta == 1) {
+        if (chkProducto == 1) {
+            jchkProductos.setSelected(true);
+        } else {
+            jchkProductos.setSelected(false);
+        }
+        
+        if (chkVentas == 1) {
             jchkVenta.setSelected(true);
         } else {
             jchkVenta.setSelected(false);
@@ -324,6 +353,12 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
             jchkReporte.setSelected(true);
         } else {
             jchkReporte.setSelected(false);
+        }
+        
+        if (chkUsuario == 1) {
+            jchkUsuario.setSelected(true);
+        } else {
+            jchkUsuario.setSelected(false);
         }
     }
     
@@ -384,7 +419,7 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTxtIdempleado = new javax.swing.JTable();
+        jTxttableusuario = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jBtnBuscarCod = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
@@ -396,10 +431,10 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
         jBtnBuscarUser = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel13 = new javax.swing.JLabel();
-        jchkAutor = new javax.swing.JCheckBox();
+        jchkInventario = new javax.swing.JCheckBox();
         jchkCliente = new javax.swing.JCheckBox();
-        jchkEditorial = new javax.swing.JCheckBox();
-        jchkLibro = new javax.swing.JCheckBox();
+        jchkCompras = new javax.swing.JCheckBox();
+        jchkProductos = new javax.swing.JCheckBox();
         jchkVenta = new javax.swing.JCheckBox();
         jchkReporte = new javax.swing.JCheckBox();
         jBtnInfo = new javax.swing.JButton();
@@ -408,8 +443,8 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
         CamposObligatorios = new javax.swing.JLabel();
         validarUsuario = new javax.swing.JLabel();
         validarContrasena = new javax.swing.JLabel();
-        jTxtContrasena1 = new javax.swing.JPasswordField();
-        jLabel15 = new javax.swing.JLabel();
+        jchkProveedor = new javax.swing.JCheckBox();
+        jchkUsuario = new javax.swing.JCheckBox();
         jPanel5 = new javax.swing.JPanel();
         jBtnActualizar = new javax.swing.JButton();
         jBtnLeer = new javax.swing.JButton();
@@ -432,9 +467,9 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel2.setBackground(new java.awt.Color(237, 120, 74));
+        jPanel2.setBackground(new java.awt.Color(0, 51, 204));
 
-        jlblImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/08- Logo The Book House.png"))); // NOI18N
+        jlblImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/supermercado_ABC_sinfondo 110x120.png"))); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Century Schoolbook", 1, 44)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -466,29 +501,29 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(71, 84, 130), 2, true), "LISTA DE REGISTROS", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(71, 84, 130))); // NOI18N
 
-        jTxtIdempleado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(71, 84, 130)));
-        jTxtIdempleado.setModel(new javax.swing.table.DefaultTableModel(
+        jTxttableusuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(71, 84, 130)));
+        jTxttableusuario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "COD", "USUARIO", "CONTRASEÑA", "ID EMPLEADO", "R.ADMIN", "R. GERENCIA", "R. CAJERO", "R. INVENTARIO", "R. VENTA", "REPORTES", "ESTADO"
+                "COD", "USUARIO", "CONTRASEÑA", "P. CLIENTES", "P. COMPRAS", "P. INVENTARIO", "P. PROVEEDOR", "P. PRODUCTOS", "P. VENTAS", "P. REPORTERIA", "P. USUARIO", "ESTADO"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jTxtIdempleado.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTxttableusuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTxtIdempleadoMouseClicked(evt);
+                jTxttableusuarioMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTxtIdempleado);
+        jScrollPane1.setViewportView(jTxttableusuario);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -525,6 +560,8 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
         jLabel12.setText("PERMISOS DE ACCESO");
         jLabel12.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
+        jTxtCodigo.setEnabled(false);
+
         jBtnBuscarUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/search_24px.png"))); // NOI18N
         jBtnBuscarUser.setToolTipText("Presione para buscar un cliente por su número de identidad");
         jBtnBuscarUser.setBorderPainted(false);
@@ -542,17 +579,22 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
         jLabel13.setText("CODIGO");
         jLabel13.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
-        jchkAutor.setBackground(new java.awt.Color(255, 255, 255));
-        jchkAutor.setText("Cajeros");
+        jchkInventario.setBackground(new java.awt.Color(255, 255, 255));
+        jchkInventario.setText("Inventario");
 
         jchkCliente.setBackground(new java.awt.Color(255, 255, 255));
-        jchkCliente.setText("Admin");
+        jchkCliente.setText("Clientes");
 
-        jchkEditorial.setBackground(new java.awt.Color(255, 255, 255));
-        jchkEditorial.setText("Gerencia");
+        jchkCompras.setBackground(new java.awt.Color(255, 255, 255));
+        jchkCompras.setText("Compras");
 
-        jchkLibro.setBackground(new java.awt.Color(255, 255, 255));
-        jchkLibro.setText("Bodega");
+        jchkProductos.setBackground(new java.awt.Color(255, 255, 255));
+        jchkProductos.setText("Productos");
+        jchkProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jchkProductosActionPerformed(evt);
+            }
+        });
 
         jchkVenta.setBackground(new java.awt.Color(255, 255, 255));
         jchkVenta.setText("Ventas");
@@ -570,7 +612,7 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
             }
         });
 
-        jbtnBitacora.setBackground(new java.awt.Color(237, 120, 74));
+        jbtnBitacora.setBackground(new java.awt.Color(0, 102, 204));
         jbtnBitacora.setForeground(new java.awt.Color(255, 255, 255));
         jbtnBitacora.setText("BITÁCORA");
         jbtnBitacora.setToolTipText("");
@@ -589,7 +631,9 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
         validarContrasena.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
         validarContrasena.setForeground(new java.awt.Color(255, 51, 51));
 
-        jLabel15.setText("ID EMPLEADO");
+        jchkProveedor.setLabel("Proveedor");
+
+        jchkUsuario.setLabel("Usuario");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -599,15 +643,9 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGap(4, 4, 4)
-                                .addComponent(CamposObligatorios, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGap(90, 90, 90)
-                                .addComponent(jTxtContrasena1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(4, 4, 4)
+                        .addComponent(CamposObligatorios, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(192, 192, 192)
                         .addComponent(validarContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -647,22 +685,28 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
                                     .addGroup(jPanel4Layout.createSequentialGroup()
                                         .addGap(43, 43, 43)
                                         .addComponent(jchkCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel4Layout.createSequentialGroup()
-                                        .addGap(41, 41, 41)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jchkAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jchkEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                            .addComponent(jchkInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jchkCompras, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jchkProveedor))))
                                 .addGap(18, 18, Short.MAX_VALUE)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel4Layout.createSequentialGroup()
-                                        .addComponent(jchkReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(37, 37, 37))
-                                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jchkLibro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGroup(jPanel4Layout.createSequentialGroup()
-                                            .addComponent(jchkVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(0, 0, Short.MAX_VALUE))))
-                                .addGap(43, 43, 43))
+                                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                                .addComponent(jchkReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(37, 37, 37))
+                                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jchkProductos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addGroup(jPanel4Layout.createSequentialGroup()
+                                                    .addComponent(jchkVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addGap(0, 0, Short.MAX_VALUE))))
+                                        .addGap(43, 43, 43))
+                                    .addGroup(jPanel4Layout.createSequentialGroup()
+                                        .addComponent(jchkUsuario)
+                                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jbtnBitacora, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -686,21 +730,22 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
                                 .addGap(10, 10, 10)
                                 .addComponent(jBtnInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(6, 6, 6)
-                        .addComponent(jchkLibro))
+                        .addComponent(jchkProductos))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addComponent(jchkCliente)))
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jchkVenta))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jchkEditorial)))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jchkAutor)
+                    .addComponent(jchkCompras)
+                    .addComponent(jchkVenta))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jchkInventario)
                     .addComponent(jchkReporte))
+                .addGap(4, 4, 4)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jchkProveedor)
+                    .addComponent(jchkUsuario))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -730,11 +775,7 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(validarContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTxtContrasena1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(50, 50, 50)
                         .addComponent(CamposObligatorios, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
 
@@ -862,9 +903,9 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTxtIdempleadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTxtIdempleadoMouseClicked
+    private void jTxttableusuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTxttableusuarioMouseClicked
         establecerValores();
-    }//GEN-LAST:event_jTxtIdempleadoMouseClicked
+    }//GEN-LAST:event_jTxttableusuarioMouseClicked
 
     private void jBtnBuscarCodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnBuscarCodActionPerformed
         buscarRegistro();
@@ -927,6 +968,10 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
         bitacora.show();
     }//GEN-LAST:event_jbtnBitacoraActionPerformed
 
+    private void jchkProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jchkProductosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jchkProductosActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel CamposObligatorios;
@@ -942,7 +987,6 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -954,15 +998,16 @@ public class RegistroUsuarios extends javax.swing.JInternalFrame {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTextField jTxtCodigo;
     private javax.swing.JPasswordField jTxtContrasena;
-    private javax.swing.JPasswordField jTxtContrasena1;
-    private javax.swing.JTable jTxtIdempleado;
     private javax.swing.JTextField jTxtUsuario;
+    private javax.swing.JTable jTxttableusuario;
     private javax.swing.JButton jbtnBitacora;
-    private javax.swing.JCheckBox jchkAutor;
     private javax.swing.JCheckBox jchkCliente;
-    private javax.swing.JCheckBox jchkEditorial;
-    private javax.swing.JCheckBox jchkLibro;
+    private javax.swing.JCheckBox jchkCompras;
+    private javax.swing.JCheckBox jchkInventario;
+    private javax.swing.JCheckBox jchkProductos;
+    private javax.swing.JCheckBox jchkProveedor;
     private javax.swing.JCheckBox jchkReporte;
+    private javax.swing.JCheckBox jchkUsuario;
     private javax.swing.JCheckBox jchkVenta;
     private javax.swing.JLabel jlblImagen;
     private javax.swing.JLabel validarContrasena;

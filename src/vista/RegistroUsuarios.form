@@ -110,7 +110,7 @@
         <Container class="javax.swing.JPanel" name="jPanel2">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="4a" green="78" red="ed" type="rgb"/>
+              <Color blue="cc" green="33" red="0" type="rgb"/>
             </Property>
           </Properties>
 
@@ -144,7 +144,7 @@
             <Component class="javax.swing.JLabel" name="jlblImagen">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Imagenes/08- Logo The Book House.png"/>
+                  <Image iconType="3" name="/Imagenes/supermercado_ABC_sinfondo 110x120.png"/>
                 </Property>
               </Properties>
             </Component>
@@ -201,7 +201,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="jTxtIdempleado">
+                <Component class="javax.swing.JTable" name="jTxttableusuario">
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
@@ -211,17 +211,18 @@
                       </Border>
                     </Property>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="11" rowCount="0">
+                      <Table columnCount="12" rowCount="0">
                         <Column editable="false" title="COD" type="java.lang.Object"/>
                         <Column editable="false" title="USUARIO" type="java.lang.Object"/>
                         <Column editable="false" title="CONTRASE&#xd1;A" type="java.lang.Object"/>
-                        <Column editable="false" title="ID EMPLEADO" type="java.lang.Object"/>
-                        <Column editable="false" title="R.ADMIN" type="java.lang.Object"/>
-                        <Column editable="false" title="R. GERENCIA" type="java.lang.Object"/>
-                        <Column editable="false" title="R. CAJERO" type="java.lang.Object"/>
-                        <Column editable="false" title="R. INVENTARIO" type="java.lang.Object"/>
-                        <Column editable="false" title="R. VENTA" type="java.lang.Object"/>
-                        <Column editable="false" title="REPORTES" type="java.lang.Object"/>
+                        <Column editable="false" title="P. CLIENTES" type="java.lang.Object"/>
+                        <Column editable="false" title="P. COMPRAS" type="java.lang.Object"/>
+                        <Column editable="false" title="P. INVENTARIO" type="java.lang.Object"/>
+                        <Column editable="false" title="P. PROVEEDOR" type="java.lang.Object"/>
+                        <Column editable="false" title="P. PRODUCTOS" type="java.lang.Object"/>
+                        <Column editable="false" title="P. VENTAS" type="java.lang.Object"/>
+                        <Column editable="false" title="P. REPORTERIA" type="java.lang.Object"/>
+                        <Column editable="false" title="P. USUARIO" type="java.lang.Object"/>
                         <Column editable="false" title="ESTADO" type="java.lang.Object"/>
                       </Table>
                     </Property>
@@ -230,7 +231,7 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTxtIdempleadoMouseClicked"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTxttableusuarioMouseClicked"/>
                   </Events>
                 </Component>
               </SubComponents>
@@ -263,18 +264,9 @@
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                                      <Component id="CamposObligatorios" min="-2" pref="140" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="90" pref="90" max="-2" attributes="0"/>
-                                      <Component id="jTxtContrasena1" min="-2" pref="240" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="jLabel15" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                              <Component id="CamposObligatorios" min="-2" pref="140" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="192" max="-2" attributes="0"/>
                               <Component id="validarContrasena" min="-2" pref="20" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
@@ -326,29 +318,38 @@
                                               <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                                               <Component id="jchkCliente" min="-2" pref="90" max="-2" attributes="0"/>
                                           </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <EmptySpace max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jchkAutor" min="-2" pref="80" max="-2" attributes="0"/>
-                                                  <Component id="jchkEditorial" min="-2" pref="90" max="-2" attributes="0"/>
+                                                  <Component id="jchkInventario" min="-2" pref="80" max="-2" attributes="0"/>
+                                                  <Component id="jchkCompras" min="-2" pref="90" max="-2" attributes="0"/>
+                                                  <Component id="jchkProveedor" alignment="0" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                       </Group>
                                       <EmptySpace type="separate" max="32767" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" attributes="0">
-                                              <Component id="jchkReporte" min="-2" pref="102" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jchkLibro" max="32767" attributes="0"/>
-                                              <Group type="102" attributes="0">
-                                                  <Component id="jchkVenta" min="-2" pref="96" max="-2" attributes="0"/>
-                                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="102" attributes="0">
+                                                      <Component id="jchkReporte" min="-2" pref="102" max="-2" attributes="0"/>
+                                                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="jchkProductos" max="32767" attributes="0"/>
+                                                      <Group type="102" attributes="0">
+                                                          <Component id="jchkVenta" min="-2" pref="96" max="-2" attributes="0"/>
+                                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
                                               </Group>
+                                              <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" attributes="0">
+                                              <Component id="jchkUsuario" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
@@ -383,27 +384,27 @@
                                   </Group>
                               </Group>
                               <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                              <Component id="jchkLibro" min="-2" max="-2" attributes="0"/>
+                              <Component id="jchkProductos" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="30" pref="30" max="-2" attributes="0"/>
                               <Component id="jchkCliente" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                              <Component id="jchkVenta" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jchkEditorial" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jchkAutor" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jchkCompras" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jchkVenta" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jchkInventario" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jchkReporte" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jchkProveedor" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jchkUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jSeparator3" min="-2" pref="10" max="-2" attributes="0"/>
@@ -442,12 +443,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="validarContrasena" alignment="0" min="-2" pref="20" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jTxtContrasena1" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
-                                  <Component id="jLabel15" alignment="0" min="-2" pref="20" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                               <Component id="CamposObligatorios" min="-2" pref="20" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -496,6 +492,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jTxtCodigo">
+              <Properties>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="jBtnBuscarUser">
               <Properties>
@@ -525,12 +524,12 @@
                 <Property name="horizontalTextPosition" type="int" value="4"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JCheckBox" name="jchkAutor">
+            <Component class="javax.swing.JCheckBox" name="jchkInventario">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Cajeros"/>
+                <Property name="text" type="java.lang.String" value="Inventario"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JCheckBox" name="jchkCliente">
@@ -538,24 +537,27 @@
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Admin"/>
+                <Property name="text" type="java.lang.String" value="Clientes"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JCheckBox" name="jchkEditorial">
+            <Component class="javax.swing.JCheckBox" name="jchkCompras">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Gerencia"/>
+                <Property name="text" type="java.lang.String" value="Compras"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JCheckBox" name="jchkLibro">
+            <Component class="javax.swing.JCheckBox" name="jchkProductos">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Bodega"/>
+                <Property name="text" type="java.lang.String" value="Productos"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jchkProductosActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JCheckBox" name="jchkVenta">
               <Properties>
@@ -591,7 +593,7 @@
             <Component class="javax.swing.JButton" name="jbtnBitacora">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="4a" green="78" red="ed" type="rgb"/>
+                  <Color blue="cc" green="66" red="0" type="rgb"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -633,11 +635,14 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JPasswordField" name="jTxtContrasena1">
-            </Component>
-            <Component class="javax.swing.JLabel" name="jLabel15">
+            <Component class="javax.swing.JCheckBox" name="jchkProveedor">
               <Properties>
-                <Property name="text" type="java.lang.String" value="ID EMPLEADO"/>
+                <Property name="label" type="java.lang.String" value="Proveedor"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="jchkUsuario">
+              <Properties>
+                <Property name="label" type="java.lang.String" value="Usuario"/>
               </Properties>
             </Component>
           </SubComponents>
