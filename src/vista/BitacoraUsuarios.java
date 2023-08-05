@@ -20,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Alejandra
+ * @author
  */
 public class BitacoraUsuarios extends javax.swing.JInternalFrame {
 
@@ -222,9 +222,9 @@ public class BitacoraUsuarios extends javax.swing.JInternalFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(null);
 
-        jPanel2.setBackground(new java.awt.Color(237, 120, 74));
+        jPanel2.setBackground(new java.awt.Color(0, 0, 153));
 
-        jlblImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/08- Logo The Book House.png"))); // NOI18N
+        jlblImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/supermercado_ABC_sinfondo 110x120.png"))); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Century Schoolbook", 1, 44)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -238,7 +238,7 @@ public class BitacoraUsuarios extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 232, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 248, Short.MAX_VALUE)
                 .addComponent(jlblImagen)
                 .addGap(23, 23, 23))
         );
@@ -254,7 +254,7 @@ public class BitacoraUsuarios extends javax.swing.JInternalFrame {
         );
 
         jPanel1.add(jPanel2);
-        jPanel2.setBounds(0, 0, 0, 100);
+        jPanel2.setBounds(0, 0, 949, 100);
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(71, 84, 130), 2, true), "LISTA DE REGISTROS", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(71, 84, 130))); // NOI18N
