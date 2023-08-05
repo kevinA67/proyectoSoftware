@@ -19,10 +19,10 @@
     <Property name="title" type="java.lang.String" value="USUARIOS"/>
     <Property name="toolTipText" type="java.lang.String" value=""/>
     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-      <Color id="Default Cursor"/>
+      <Color id="Cursor Por defecto"/>
     </Property>
     <Property name="frameIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-      <Image iconType="3" name="/Imagenes/cliente_icon2.png"/>
+      <Image iconType="3" name="/Imagenes/usericon.png"/>
     </Property>
     <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[1000, 650]"/>
@@ -121,7 +121,7 @@
                       <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="jlblImagen" min="-2" max="-2" attributes="0"/>
+                      <Component id="jlblImagen" min="-2" pref="108" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -413,21 +413,18 @@
                   </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabel13" min="-2" pref="20" max="-2" attributes="0"/>
+                          <Component id="jTxtCodigo" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="jBtnBuscarCod" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <EmptySpace min="30" pref="30" max="-2" attributes="0"/>
-                              <Component id="jBtnBuscarCod" min="-2" pref="30" max="-2" attributes="0"/>
-                              <EmptySpace min="30" pref="30" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jBtnBuscarUser" min="-2" pref="30" max="-2" attributes="0"/>
-                                  <Component id="validarUsuario" min="-2" pref="20" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="jBtnBuscarUser" min="-2" pref="30" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="validarUsuario" min="-2" pref="20" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel13" min="-2" pref="20" max="-2" attributes="0"/>
-                                  <Component id="jTxtCodigo" min="-2" pref="30" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="30" pref="30" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jTxtUsuario" min="-2" pref="30" max="-2" attributes="0"/>
                                   <Component id="jLabel11" min="-2" pref="20" max="-2" attributes="0"/>
@@ -492,9 +489,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jTxtCodigo">
-              <Properties>
-                <Property name="enabled" type="boolean" value="false"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="jBtnBuscarUser">
               <Properties>
@@ -698,9 +692,6 @@
           <SubComponents>
             <Component class="javax.swing.JButton" name="jBtnActualizar">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Imagenes/update_24px.png"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="ACTUALIZAR"/>
                 <Property name="focusPainted" type="boolean" value="false"/>
               </Properties>
@@ -710,9 +701,6 @@
             </Component>
             <Component class="javax.swing.JButton" name="jBtnLeer">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Imagenes/view_24px.png"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="LEER"/>
                 <Property name="focusPainted" type="boolean" value="false"/>
               </Properties>
@@ -722,9 +710,6 @@
             </Component>
             <Component class="javax.swing.JButton" name="jBtnCrear">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Imagenes/Add User Group Woman Man2_24px.png"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="CREAR"/>
                 <Property name="focusPainted" type="boolean" value="false"/>
               </Properties>
@@ -734,9 +719,6 @@
             </Component>
             <Component class="javax.swing.JButton" name="jBtnEliminar">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Imagenes/Delete User Male_24px.png"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="ELIMINAR"/>
                 <Property name="focusPainted" type="boolean" value="false"/>
               </Properties>
@@ -746,9 +728,6 @@
             </Component>
             <Component class="javax.swing.JButton" name="jBtnLimpiar">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Imagenes/erase_24px.png"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="LIMPIAR"/>
                 <Property name="focusPainted" type="boolean" value="false"/>
               </Properties>
