@@ -37,6 +37,10 @@ public class Informacion extends javax.swing.JInternalFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(null);
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/supermercado_ABC_sinfondo 110x120.png"))); // NOI18N
+        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jPanel1.add(jLabel1);
         jLabel1.setBounds(290, 6, 140, 140);
 
@@ -47,7 +51,7 @@ public class Informacion extends javax.swing.JInternalFrame {
         jLabel2.setBounds(290, 150, 126, 25);
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("THE BOOK HOUSE es un programa desarrollado para librerías con el obejivo de gestionar los datos y ventas de los libros.");
+        jLabel3.setText("Abarroteria es un programa desarrollado para tiendas con el obejivo de gestionar los datos y ventas.");
         jPanel1.add(jLabel3);
         jLabel3.setBounds(0, 190, 720, 20);
 

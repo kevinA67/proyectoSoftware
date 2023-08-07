@@ -14,7 +14,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.table.*;
-import proyectog4.Login;
 import vista.*;
 
 /**
@@ -261,7 +260,8 @@ public class Menu_Principal extends javax.swing.JFrame {
         jbtnAutor.setBackground(new java.awt.Color(51, 153, 255));
         jbtnAutor.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jbtnAutor.setForeground(new java.awt.Color(0, 0, 102));
-        jbtnAutor.setText("     Autores");
+        jbtnAutor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/productoicon.png"))); // NOI18N
+        jbtnAutor.setText("Productos");
         jbtnAutor.setBorderPainted(false);
         jbtnAutor.setFocusPainted(false);
         jbtnAutor.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -302,7 +302,8 @@ public class Menu_Principal extends javax.swing.JFrame {
         jbtnLibro.setBackground(new java.awt.Color(51, 153, 255));
         jbtnLibro.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jbtnLibro.setForeground(new java.awt.Color(0, 0, 102));
-        jbtnLibro.setText("      Libros");
+        jbtnLibro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/inventarioicon.png"))); // NOI18N
+        jbtnLibro.setText("Categoria");
         jbtnLibro.setBorderPainted(false);
         jbtnLibro.setFocusPainted(false);
         jbtnLibro.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -524,12 +525,12 @@ public class Menu_Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu4MouseClicked
 
     private void jbtnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnReportesActionPerformed
-        Reporteria rp = new Reporteria();
-        jDesktopPane1.add(rp);
-        Dimension desktopSize = jDesktopPane1.getSize();
-        Dimension FrameSize = rp.getSize();
-        rp.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
-        rp.show();
+//  Reporteria rp = new Reporteria();
+//        jDesktopPane1.add(rp);
+//        Dimension desktopSize = jDesktopPane1.getSize();
+//        Dimension FrameSize = rp.getSize();
+//        rp.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+//        rp.show();
     }//GEN-LAST:event_jbtnReportesActionPerformed
 
     private void jbtnReportesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnReportesMouseExited
@@ -598,12 +599,12 @@ public class Menu_Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnLibroMouseEntered
 
     private void jbtnVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnVentaActionPerformed
-//        RegistroVentas ventas = new RegistroVentas();
-//        jDesktopPane1.add(ventas);
-//        Dimension desktopSize = jDesktopPane1.getSize();
-//        Dimension FrameSize = ventas.getSize();
-//        ventas.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
-//        ventas.show();
+        ventas1 ventas = new ventas1();
+        jDesktopPane1.add(ventas);
+        Dimension desktopSize = jDesktopPane1.getSize();
+        Dimension FrameSize = ventas.getSize();
+        ventas.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+        ventas.show();
     }//GEN-LAST:event_jbtnVentaActionPerformed
 
     private void jbtnVentaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnVentaMouseExited
