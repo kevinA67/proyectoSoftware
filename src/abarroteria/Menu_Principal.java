@@ -524,12 +524,12 @@ public class Menu_Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu4MouseClicked
 
     private void jbtnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnReportesActionPerformed
-//        Reportes rp = new Reportes();
-//        jDesktopPane1.add(rp);
-//        Dimension desktopSize = jDesktopPane1.getSize();
-//        Dimension FrameSize = rp.getSize();
-//        rp.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
-//        rp.show();
+        Reporteria rp = new Reporteria();
+        jDesktopPane1.add(rp);
+        Dimension desktopSize = jDesktopPane1.getSize();
+        Dimension FrameSize = rp.getSize();
+        rp.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+        rp.show();
     }//GEN-LAST:event_jbtnReportesActionPerformed
 
     private void jbtnReportesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnReportesMouseExited
